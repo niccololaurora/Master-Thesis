@@ -1,0 +1,68 @@
+\documentclass[a4paper,twoside,openright,titlepage,
+               headinclude,footinclude,BCOR=5mm,
+               numbers=noenddot,cleardoublepage=empty,
+               captions=tableheading]{book}
+
+% Encoding and language
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% Mathematics and symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{braket}
+
+% Formatting and layout
+\usepackage{indentfirst}
+\usepackage{chngpage}
+\usepackage{calc}
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{tikz}
+\usetikzlibrary{calc, arrows, quantikz2}
+
+% Special packages
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{epigraph}
+\usepackage{slashed}
+\usepackage{pifont}
+\usepackage{dsfont}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Classic thesis style options
+\usepackage[eulerchapternumbers,subfig,beramono,eulermath,pdfspacing,listings]{classicthesis}
+
+% Custom settings (if any)
+\usepackage{arsclassica}
+\usepackage[style=ieee]{biblatex}
+
+
+\newtheorem{theorem}{Theorem}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\input{arsclassica-settings}
+
+\begin{document}
+\pagenumbering{roman}
+\pagestyle{plain}
+\input{FrontBackMatter/Titlepage}
+\cleardoublepage
+\input{FrontBackMatter/Acknowledgements}
+\pagestyle{scrheadings} 
+\input{FrontBackMatter/Contents}
+\cleardoublepage
+\pagenumbering{arabic}
+%\input{Chapters/Chapter3/QuantumComputing}
+\clearpage
+\input{Chapters/Chapter1/StandardModel}
+\clearpage
+%\input{Chapters/Chapter2/MachineLearning}
+\clearpage
+\input{FrontBackMatter/Bibliography.bib}
+\end{document}

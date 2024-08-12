@@ -1,0 +1,104 @@
+PWD /Users/niccolo/Desktop/tesi_magi/Chapters/Chapter1/Feynman
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt
+INPUT /Users/niccolo/Desktop/tesi_magi/Chapters/Chapter1/Feynman/DIS.tex
+OUTPUT DIS.log
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/standalone/standalone.cls
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/standalone/standalone.cls
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/shellesc.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/shellesc.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/shellesc.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifluatex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifluatex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifluatex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/iftex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/iftex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xkeyval/xkeyval.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xkeyval/xkeyval.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkeyval.tex
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkvutils.tex
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/keyval.tex
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/standalone/standalone.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/standalone/standalone.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/standalone/standalone.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/preview/preview.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/article.cls
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/article.cls
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/size10.clo
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/size10.clo
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/size10.clo
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/feynmp-auto/feynmp-auto.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/feynmp-auto/feynmp-auto.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/feynmf/feynmp.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/feynmf/feynmp.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdftex.def
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdftex.def
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdftex.def
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifpdf.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifpdf.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifxetex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifxetex.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pdftexcmds/pdftexcmds.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pdftexcmds/pdftexcmds.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/infwarerr/infwarerr.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/infwarerr/infwarerr.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/ltxcmds/ltxcmds.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/generic/ltxcmds/ltxcmds.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/scalerel/scalerel.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/scalerel/scalerel.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/calc.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/calc.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/keyval.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etoolbox/etoolbox.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etoolbox/etoolbox.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
+OUTPUT DIS.aux
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.sty
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmr12.tfm
+INPUT ./feyngraph.mp
+INPUT ./feyngraph.mp
+INPUT ./feyngraph.mp
+OUTPUT feyngraph.mp
+INPUT ./feyngraph.1
+INPUT ./feyngraph.1
+INPUT feyngraph.1
+INPUT feyngraph.1
+INPUT ./feyngraph.t1
+INPUT ./feyngraph.t1
+INPUT feyngraph.t1
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmr8.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmr6.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmmi8.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmmi6.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmsy8.tfm
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmsy6.tfm
+INPUT ./feyngraph.mp
+OUTPUT DIS.pdf
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map
+INPUT DIS.aux
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+INPUT /Users/niccolo/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb

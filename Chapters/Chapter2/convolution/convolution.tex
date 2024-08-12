@@ -1,0 +1,44 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{matrix,backgrounds,shapes,arrows.meta}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+    % Draw the image matrix
+    \matrix[matrix of nodes,nodes={draw, minimum size=0.8cm, anchor=center}, column sep=-\pgflinewidth, row sep=-\pgflinewidth] (m) {
+        \node {1}; & \node {2}; & \node {3}; & \node {4}; \\
+        \node {6}; & \node {0}; & \node {2}; & \node {1}; \\
+        \node {1}; & \node {3}; & \node {2}; & \node {14}; \\
+        \node {16}; & \node {4}; & \node {2}; & \node {19}; \\
+    };
+
+    % Draw the filter matrix
+    \matrix[matrix of nodes,nodes={draw, minimum size=0.8cm, anchor=center, fill=blue!30}, column sep=-\pgflinewidth, row sep=-\pgflinewidth] at (4,0) (f) {
+        \node {1}; & \node {0}; \\
+        \node {2}; & \node {4}; \\
+    };
+
+    % Draw a rectangle to indicate the convolution operation area
+    \draw[thick, red, dashed] (-1.6,0) rectangle (0,1.6);
+
+
+    \matrix[matrix of nodes,nodes={draw, minimum size=0.8cm, anchor=center}, column sep=-\pgflinewidth, row sep=-\pgflinewidth] at (8,0) (b) {
+        \node {13}; & \node {x}; & \node {x}; \\
+        \node {x}; & \node {x}; & \node {x}; \\
+        \node {x}; & \node {x}; & \node {x};\\ 
+    };
+
+
+    % Label the areas
+    \node at (0, 2.5) {Image};
+    \node at (4, 2) {Filter};
+    \node at (8, 2.5) {Convoluted Image};
+
+    \node at (2.5, 0) {$*$};
+    \node at (5.5, 0) {$=$};
+
+\end{tikzpicture}
+
+\end{document}
