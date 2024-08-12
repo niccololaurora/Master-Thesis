@@ -1,0 +1,47 @@
+% !TeX root = ../main.tex
+
+% --- PACKAGES ---
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{mathtools,physics,tensor}
+\RequirePackage{bbold,mathrsfs}
+\RequirePackage{bm}
+\RequirePackage{slashed}
+%\RequirePackage[mathscr]{euscript}
+%\RequirePackage{bickham}		% redefines \mathcal e \mathbcal
+							% al momento non riesco a farlo funzionare
+%\RequirePackage{mathalfa}		% powerful package with a lot of math fonts
+%\RequirePackage{fourier}		% alternativa decente a bassa sbatta
+%\RequirePackage[euler-digits,euler-hat-accent]{eulervm}
+\numberwithin{equation}{chapter}
+% ------------
+
+% --- THEOREMS ---
+% theorems (with amsthm) in english
+\theoremstyle{plain}% default
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{thm*}{Theorem}
+\newtheorem*{lem*}{Lemma}
+\newtheorem*{prop*}{Proposition}
+\newtheorem*{cor}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{es}{Example}[section]
+\newtheorem{ex}{Exercise}[section]
+\newtheorem*{defn*}{Definition}
+\newtheorem*{es*}{Example}
+\newtheorem*{ex*}{Exercise}
+\newtheorem*{note}{Note}
+
+% ENVIRONMENTS
+\newtcbtheorem[number within=section]{example}{Example}%
+{colback=CornflowerBlue!4,colframe=CornflowerBlue!60!black,fonttitle=\bfseries,before upper={\parindent15pt\noindent}}{th}
+
+\newtheorem{theorem}{Theorem}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+%\newtcbtheorem[number within=section]{mytheo}{My Theorem}%
+%{colback=green!5,colframe=green!35!black,fonttitle=\bfseries}{th}
+% ------------

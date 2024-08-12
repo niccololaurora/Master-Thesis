@@ -1,0 +1,39 @@
+% !TeX root = ../main.tex
+
+\RequirePackage{silence}
+
+% for some reason (still unknown to me), this warning is a fact of life
+% people mention that with biblatex
+% - backend should be specified, preferably biber [done]
+% - \bibliography is deprecated, use \addbibresource [done]
+% moreover, the full error message is not recognized, so truncation is needed
+% to silence https://tex.stackexchange.com/q/663020/144478
+\WarningFilter{latex}{Empty bibliography}
+
+% somehow related to page geometry
+\WarningFilter{typearea}{page content and margins higher than paper.}
+
+% classicthesis fault: https://tex.stackexchange.com/a/565615/144478
+\WarningFilter{titlesec}{Non standard sectioning command}
+
+% minitoc incompatibilities, see its docs on CTAN
+\WarningFilter{minitoc(hints)}{W0099}
+\WarningFilter{minitoc(hints)}{W0030}
+\WarningFilter{minitoc(hints)}{W0023}
+\WarningFilter{minitoc(hints)}{W0028}
+\WarningFilter{minitoc(hints)}{W0024}
+
+% remreset deprecation
+\WarningFilter{remreset}{The remreset package is obsolete}
+
+% hyperref duplication warnings
+\WarningFilter{hyperref}{Option `hyperfootnotes' has already been used}
+\WarningFilter{hyperref}{Option `pdfpagelabels' has already been used}
+
+% scrlayer-scrpage: headers and footers manager (used in classicthesis or arsclassica)
+% deprecation of clear commands
+\WarningFilter{scrlayer-scrpage}{replacing deprecated \clearscrplain}
+
+% \qty used is actually the one from the physics package
+% mainly used in EKO paper
+\WarningFilter{siunitx}{Detected the "physics" package: omitting definition of \qty.}

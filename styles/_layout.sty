@@ -1,0 +1,86 @@
+% !TeX root = ../main.tex
+
+% improve microtyping
+\RequirePackage{microtype}
+
+% manage layouts
+\RequirePackage{geometry}
+
+% indent first paragraph of each section
+\RequirePackage{indentfirst}
+
+\RequirePackage[normalem]{ulem}
+\RequirePackage[bottom]{footmisc}
+\RequirePackage{float}
+%\RequirePackage[bottom]{footmisc}		% note a fondo pagina
+%\RequirePackage{emptypage}
+\RequirePackage{verbatim}
+\RequirePackage{lipsum}
+\RequirePackage{changepage}
+\RequirePackage{lettrine}
+\RequirePackage{ifoddpage}
+
+%*********************************************************************************
+% Color Boxes
+%*********************************************************************************
+%\RequirePackage{layouts}
+%\printinunitsof{mm}{\pagevalues}
+%\verb|\marginparwidth|: \printinunitsof{mm}\prntlen{\marginparwidth}
+
+%*********************************************************************************
+% Tikz
+%*********************************************************************************
+\RequirePackage{pgf}
+\RequirePackage{tikz}
+\RequirePackage[compat=1.0.0]{tikz-feynman}
+\RequirePackage{rotating}
+\RequirePackage{pgfornament}
+% \RequirePackage{pgfornament,pgfornament-han}
+\usetikzlibrary{
+  arrows, calc, shapes, decorations, automata, backgrounds, petri, positioning
+}
+
+\setlength{\skip\footins}{15pt}
+
+%*********************************************************************************
+% Color Boxes
+%*********************************************************************************
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+%*********************************************************************************
+% Optimized margins for B5
+%*********************************************************************************
+\KOMAoptions{BCOR=10mm}
+\areaset[current]{360pt}{650pt}
+\setlength{\marginparwidth}{7em}
+\setlength{\marginparsep}{2em}%
+
+%*********************************************************************************
+% Minitoc settings
+%*********************************************************************************
+\RequirePackage{minitoc}
+\dominitoc[e]
+\mtcsetrules{minitoc}{off}
+\mtcsetfeature{minitoc}{before}{\textcolor{black!70}{\rule{0.8\textwidth}{0.1pt}}\vspace{-19pt}}
+\mtcsetfeature{minitoc}{after}{\vspace{-24pt}\textcolor{black!70}{\rule{0.8\textwidth}{0.1pt}}\bigskip}
+\setcounter{tocdepth}{2}
+
+%*********************************************************************************
+% numbering
+%*********************************************************************************
+
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+%*********************************************************************************
+% my sizes
+%*********************************************************************************
+
+\newlength{\myshift}
+\setlength{\myshift}{4mm}
+\addtolength{\evensidemargin}{-\myshift}
+\addtolength{\oddsidemargin}{\myshift}
+%\setlength{\evensidemargin}{8.40024mm} % initial value: 12.40024mm
+%\setlength{\oddsidemargin}{3.80026mm} % initial value: -0.19974mm
