@@ -1,41 +1,36 @@
-\begin{titlepage}
-\pdfbookmark{Titlepage}{Titlepage}
-\changetext{}{}{}{((\paperwidth  - \textwidth) / 2) - \oddsidemargin - \hoffset - 1in}{}
-\null\vfill
+% !TeX root = ../../main.tex
+
+\pdfbookmark{Cover}{Cover}
+\newgeometry{width=370pt,height=650pt,centering}
+
 \begin{center}
-\large
-\sffamily
+	\includegraphics[width=11cm]{logos/uni.jpg}
+	\vspace*{10pt}
 
-\begin{figure}
-\centering
-\includegraphics[width=360pt]{logos/uni.jpg}
-\myDepartment
-\vspace{0.5 cm}
-\end{figure}
+	Laurea Magistrale in Fisica\\
+	\myDepartment\\
+	\vspace*{5pt}
 
-\bigskip
+	\vfill
 
-{\huge\spacedlowsmallcaps{\myTitle} \\
-}
+	{\Huge \myTitle}\\
+    \vspace*{30pt}
 
+	\vfill
+
+	\textbf{Supervisor:} \hfill \textbf{Candidate:}\\
+	\myProf \hfill \myName\\
+    \begin{flushleft}
+    \textbf{Co-Supervisor:} \\
+    \cosupervisor \\
+    \cocosupervisor \\
+    \end{flushleft}
+	\vspace*{15pt}
+	Anno Accademico 2023/2024
 \end{center}
-
-\bigskip
-    
-\vspace{9cm}
-
-
-\begin{flushleft}
-\textbf{Supervisor}:\\ \myProf \\ \cosupervisor \\ \cocosupervisor
-\end{flushleft}
 	
-\begin{flushright}
-\textbf{Candidate}:\\ \myName
-\end{flushright}
 	
-\vfill
-\begin{center}
-{\large Anno Accademico 2023/2024}
-\end{center}
+\pagenumbering{gobble}
 
-\end{titlepage}
+\cleardoublepage
+\restoregeometry

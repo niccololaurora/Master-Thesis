@@ -12,8 +12,6 @@ $(MAIN).pdf: $(MAIN).tex
 	pdflatex $(MAIN).tex
 
 clean:
-	rm *.aux *.bbl *.bcf *.blg *.log *.out *.run.xml *.mtc* *.maf *.toc
+	rm *.aux *.bbl *.bcf *.blg *.log *.out *.run.xml *.mtc* *.maf *.toc *.fdb_latexmk *.fls $(MAIN).pdf
 
-cleanall: clean
-	rm $(MAIN).pdf
 

@@ -1,5 +1,8 @@
 *.pdf
 
+# macOS file
+.DS_Store
+
 # More generated files
 *.ist
 *.mtc
