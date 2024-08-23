@@ -1,9 +1,11 @@
 % !TeX root = ../main.tex
 
 % --- PACKAGES ---
-\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{amsmath,amssymb,amsthm,bm}
+\DeclareMathOperator*{\argmin}{arg\,min}
 \RequirePackage{mathtools,physics,tensor}
 \RequirePackage{bbold,mathrsfs}
+\RequirePackage{dsfont}
 \RequirePackage{bm}
 \RequirePackage{slashed}
 %\RequirePackage[mathscr]{euscript}
@@ -42,6 +44,8 @@
 \newtheorem{theorem}{Theorem}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 
-%\newtcbtheorem[number within=section]{mytheo}{My Theorem}%
-%{colback=green!5,colframe=green!35!black,fonttitle=\bfseries}{th}
-% ------------
+% Miscellaneous
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{tikz}
+\usetikzlibrary{quantikz2}
