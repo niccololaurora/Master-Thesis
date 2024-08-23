@@ -12,7 +12,7 @@ A possible definition of AI was given by John McCarthy, an American computer sci
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.8]{Chapters/Chapter2/venn_diagram/venn.pdf}
+\includegraphics[scale=0.8]{sections/Chapters/Chapter2/venn_diagram/venn.pdf}
 \caption{Venn diagram representing the relationship between AI, Machine Learning, Deep Learning and ANN.}
 \label{fig:venn-AI}
 \end{figure}
@@ -48,7 +48,7 @@ The operative workflow of a \textit{Machine Learning} model could be summarized 
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.8]{Chapters/Chapter2/flowchart.pdf}
+\includegraphics[scale=0.8]{sections/Chapters/Chapter2/flowchart.pdf}
 \caption{Pipeline of a machine learning algorithm.}
 \label{fig:pipeline}
 \end{figure}
@@ -88,21 +88,22 @@ It is essential to carefully choose the learning rate, since, if $\alpha$ is too
 too large gradient descent may fail to converge or diverge. \\
 Gradient-based optimization algorithms (such as Adam, Nadam, Adamax, ...) differ from one another by introducing slight variations to the parameter 
 update equation~\ref{eq:update-param}.
-Among these, the most widely used is Adam (Adaptive Moment Estimation), which dynamically adjusts the learning rate for each parameter 
-by estimating the first and second moments (mean and variance) of the gradients. The parameter update rule in Adam is given by:
+Among these, the most widely used is Adam (Adaptive Moment Estimation) \cite{kingma2017}, which dynamically adjusts 
+the learning rate for each parameter by estimating the first and second moments (mean and variance) 
+of the gradients. The parameter update rule in Adam is given by:
 
 \begin{equation}
-    \omega_{t} := \omega_{t-1} - \alpha \frac{\hat{m_t}}{\sqrt{\hat{v_t}} + \epsilon} 
+    \omega_{t} := \omega_{t-1} - \alpha \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} 
 \end{equation}
 
 where $\epsilon$ is a small constant added for numerical stability to prevent division by zero errors, whereas
-The terms $\hat{m_t}$ and $\hat{v_t}$, as defined in the full Adam algorithm~\ref{work}, represent bias-corrected estimates of the first 
+The terms $\hat{m}_t$ and $\hat{v}_t$, as defined in the full Adam algorithm~\ref{work:adam}, represent bias-corrected estimates of the first 
 and second moments of the gradients:
 
 \begin{align}
-    \hat{m_t} = \frac{m_t}{1 - \beta_1^t}
+    \hat{m}_t = \frac{m_t}{1 - \beta_1^t}
     \qquad
-    \hat{v_t} = \frac{v_t}{1 - \beta_2^t}
+    \hat{v}_t = \frac{v_t}{1 - \beta_2^t}
 \end{align}
 
 $m_t$ and $v_t$ are the exponentially weighted moving averages of the gradients and the squared gradients, respectively.
@@ -128,8 +129,8 @@ these values at the timestep $t$.\\
     \State $g_t \gets \nabla_{\omega} f_t(\omega_{t-1}) $ (Get gradients w.r.t. stochastic objective at timestep t)
     \State $m_t \gets \beta_1 \cdot m_{t-1} + (1 - \beta_1) \cdot g_t$ (Update biased first moment estimate)
     \State $v_t \gets \beta_2 \cdot v_{t-1} + (1 - \beta_2) \cdot g_t^2$ (Update biased second raw moment estimate)
-    \State $\hat{m_t} \gets m_t / (1 - \beta^t_1)$ (Compute bias-corrected first moment estimate)
-    \State $\hat{v_t} \gets v_t / (1 - \beta^t_2)$ (Compute bias-corrected second raw moment estimate)
+    \State $\hat{m}_t \gets m_t / (1 - \beta^t_1)$ (Compute bias-corrected first moment estimate)
+    \State $\hat{v}_t \gets v_t / (1 - \beta^t_2)$ (Compute bias-corrected second raw moment estimate)
     \State $\omega_t \gets \omega_{t-1} - \alpha \cdot \hat{m_t} / (\sqrt{\hat{v_t}} + \epsilon)$ (Update parameters)
     \EndWhile
     \State \Return $\theta_t$ (Resulting parameters)
@@ -174,7 +175,7 @@ Var[\hat{y}(x_0)] = E[\hat{y}(x_0)^2] - (E[\hat{y}(x_0)])^2
 
 Here, $Bias[\hat{y}(x0)]$ represents the bias of the model's prediction $\hat{y}(x_0)$ relative to the true value $y_0$, while 
 $Var[\hat{y}(x_0)]$ indicates the variance of the model's predictions. The term $Var(\epsilon)$ represents the variance of the noise in the data.\\
-Our objective is to minimize the expected squared error as described in equation~\ref{eq}.\\
+Our objective is to minimize the expected squared error as described in equation~\ref{eq:variance-bias}.\\
 High bias typically results in \textit{underfitting}, where the model fails to capture important relationships between the 
 features and the target outputs, leading to poor performance on both training and test data. On the other hand, high 
 variance results in \textit{overfitting}, where the model learns the noise in the training data rather than 
@@ -187,7 +188,7 @@ which divide the dataset in three groups: \textit{training} set, \textit{validat
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.8]{Chapters/Chapter2/cross.pdf}
+\includegraphics[scale=0.8]{sections/Chapters/Chapter2/cross.pdf}
 \caption{Comparison between the division of the data in two sets and three sets.}
 \end{figure}
 
@@ -198,7 +199,7 @@ In rotation every single k-fold will be used as the \textit{validation} set once
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.7]{Chapters/Chapter2/kfold.pdf}
+\includegraphics[scale=0.7]{sections/Chapters/Chapter2/kfold.pdf}
 \caption{Schematic explanation of the k-fold cross validation technique with 10 folds.}
 \end{figure}
 
@@ -222,13 +223,13 @@ Some common techniques for hyperparameter optimization are:
     The main disadvantage is that there is no guarantee that the best configuration will be found, as it only samples a subset of the 
     possible combinations.
 
-    \item Genetic Algorithm.\\
-    Genetic algorithms are inspired by the process of natural selection. They evolve a population of hyperparameter configurations 
+    \item Genetic Algorithms.\\
+    Genetic algorithms (for further informations \cite{alam2020}) are inspired by the process of natural selection. They evolve a population of hyperparameter configurations 
     over multiple generations, using operations like mutation, crossover, and selection to find the best configurations.
     The main disadvantages are that it can be computationally expensive and it requires the tuning of internal parameters.
 
     \item Bayesian optimization.\\
-    Bayesian optimization uses a probabilistic model to predict the performance of different hyperparameter configurations. 
+    Bayesian optimization (for further informations \cite{frazier2018}) uses a probabilistic model to predict the performance of different hyperparameter configurations. 
     It iteratively selects the most promising configurations to evaluate based on past results, aiming to find the optimal set more efficiently.
     It can be more efficient than Grid Search and Random Search, but it requires a careful choice of the probabilistic model.
 
@@ -247,7 +248,7 @@ The number of neurons in a given layer is referred to as its \textit{width}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.5]{Chapters/Chapter2/foto.png}
+\includegraphics[scale=0.5]{sections/Chapters/Chapter2/foto.png}
 \caption{Multilayer perceptron with three hidden layers.}
 \end{figure}
 
@@ -263,7 +264,7 @@ where g is the activation function, $w_{0}$ is the bias and $w_{i}$ ($i \ne 0$) 
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=1]{Chapters/Chapter2/neuron.pdf}
+\includegraphics[scale=1]{sections/Chapters/Chapter2/neuron.pdf}
 \caption{Schematic representation of a neuron.}
 \end{figure}
 
@@ -275,13 +276,6 @@ The \textit{backpropagation algorithm} is the most common algorithm to compute t
 
 There is a wide range of artificial neural network (ANN) architectures, ranging from simple models like the single perceptron to more complex ones 
 such as Generative Adversarial Networks (GANs). Figure~\ref{fig:zoo} provides a partial overview of the diverse spectrum of neural network architectures.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.05]{Chapters/Chapter2/NeuralNetworkZoo.png}
-\caption{Neural Networks Zoo.}
-\label{fig:zoo}
-\end{figure}
 
 \subsection{Multilayer Perceptron}
 
@@ -317,7 +311,7 @@ A CNN has two main components:
 
     \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.7]{Chapters/Chapter2/convolution/convolution.pdf}
+    \includegraphics[scale=0.7]{sections/Chapters/Chapter2/convolution/convolution.pdf}
     \caption{Convolution operation.}
     \end{figure}
 
@@ -328,7 +322,7 @@ A CNN has two main components:
 
     \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.7]{Chapters/Chapter2/pooling/pooling.pdf}
+    \includegraphics[scale=0.7]{sections/Chapters/Chapter2/pooling/pooling.pdf}
     \caption{Max pooling operation.}
     \end{figure}
 \end{itemize}
@@ -371,7 +365,7 @@ The output of a binary classifier can be visualized in a \textit{confusion matri
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.5]{Chapters/Chapter2/confusionmatrixdef.png}
+\includegraphics[scale=0.5]{sections/Chapters/Chapter2/confusionmatrixdef.png}
 \caption{Confusion matrix for a binary classifier.}
 \end{figure}
 
@@ -423,12 +417,6 @@ Therefore it is useful to introduce metrics which show the diagnostic ability of
 
 \end{itemize}
 
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{Chapters/Chapter2/roccurve.pdf}
-\caption{ROC curves for a three folded training of a binary classifier.}
-\end{figure}
 
 \subsection{Multi-class Classifier}
 \label{section:multiclass_explanation}
