@@ -30,16 +30,16 @@
 \setlist[description]{font=\quad\normalfont\itshape\space}
 
 % images
+% subfigure is obsolete, it has been superseded by subfig.
+% However, subfig last version was released in 2005.
+% Best option is subcaption
 \RequirePackage{graphicx}
-\RequirePackage{subfig}
+\RequirePackage{subcaption}
 
 % symbols
 \RequirePackage{pifont}
 \let\checkmark\relax
 \RequirePackage{dingbat}
-
-% sub-figures and sub-tables
-\RequirePackage{subfig}
 
 % dates and times
 \RequirePackage{datetime2}
@@ -56,16 +56,9 @@
 }
 % \AtBeginDocument{\RenewCommandCopy\qty\SI}
 
-% ??? from EKO
-\RequirePackage{wasysym}
-
 % bibliography;
 % make citing style author-year;
 % the style "numeric-comp" makes numeric references;
 \RequirePackage[style=philosophy-modern,url=false,
 	hyperref,square,backend=biber]{biblatex}
 
-% glossaries (after hyperref)
-\RequirePackage[acronym,automake,nomain,section=section]{glossaries}
-\renewcommand*{\glstextformat}[1]{\textcolor{black!90}{#1}}
-\makeglossaries
