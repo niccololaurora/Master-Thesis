@@ -1,0 +1,38 @@
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.35]{sections/chapters/Chapter6/Images/Heatmaps/Local-Heatmaps/Heatmap-Both-8x8-L.pdf}
+    \caption{This heatmap shows the training and validation accuracy for architectures with 1-15 qubits and
+    1-6 layers for the $8\times8$ down-scaled MNIST digits and fashion dataset using a global Pauli Z.}
+    \label{fig:heatmap-8x8-L}
+\end{figure}
+By looking at figure \ref{fig:heatmap-8x8-L}, we can distinguish 
+three different behaviours:
+
+\begin{enumerate}
+    \item \textbf{Deep-Narrow}.\\
+    As the number of layers increases in narrow architectures (1, 2, or 3 qubits), their capacity to 
+    generalize diminishes, leading to overfitting. This occurs because the increase in layers corresponds 
+    to a rise in the number of trainable parameters (see figure \ref{arc:embed-pooling}).\\
+    As a result, the architecture becomes overparameterized, allowing it to capture even minor 
+    fluctuations in the training dataset, which reduces its ability to generalize effectively to new, 
+    unseen data.
+    \item \textbf{Shallow-Wide}.\\
+    As the number of qubits (width) increases both training and validation accuracy of 
+    single-layer architectures (shallow) drop drastically.
+    As the width of the architecture increases, a greater degree of entanglement is required to 
+    effectively distribute information across all qubits. However, shallow architectures lack 
+    sufficient entangling gates to achieve this, resulting in an inability to fully capture and 
+    “understand" the complete picture.\\
+    However, by comparing training and validation accuracy, although both decrease as 
+    the width increases, there is no evidence of overfitting.\\
+    We can conclude that, as the architecture widens, entanglement becomes increasingly crucial for the 
+    architecture to effectively ”understand” the image.
+    \item \textbf{Proportionate}.\\
+    In proportionate architectures (those that are neither shallow-wide nor deep-narrow) overfitting 
+    tends to diminish. As the number of layers and qubits increases, the \textit{block re-uploading} 
+    introduces a richer set of entanglement structures, enabling more effective information sharing 
+    across all qubits. This reduction in overfitting as entanglement grows raises some natural questions:
+    \textit{Could entanglement be a factor that resists overfitting?}, 
+    \textit{Might entanglement serve as a source of regularization?}.
+\end{enumerate}
