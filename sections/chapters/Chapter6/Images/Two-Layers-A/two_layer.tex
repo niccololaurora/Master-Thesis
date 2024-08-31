@@ -1,0 +1,25 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{quantikz}
+
+\begin{document}
+
+
+
+\begin{quantikz}
+\lstick{$\ket{0}$}&
+\gate[4,style={fill=red!20},disable auto height]{\textsc{Embedding}}\gategroup[4,steps=3,style={inner
+sep=6pt}]{L(1)} &
+\gate[4,style={fill=blue!20},disable auto height]{\textsc{Entanglement}} &
+\gate[4,style={fill=green!20},disable auto height]{\textsc{Pooling}} & &
+\gate[4,style={fill=gray!20},disable auto height]{\textsc{Entanglement}} & &
+\gate[4,style={fill=red!20},disable auto height]{\textsc{Embedding}}\gategroup[4,steps=3,style={inner
+sep=6pt}]{L(2)} &
+\gate[4,style={fill=blue!20},disable auto height]{\textsc{Entanglement}} &
+\gate[4,style={fill=green!20},disable auto height]{\textsc{Pooling}} & \\
+\lstick{$\ket{0}$} & & & & & & & & & & \\
+\lstick{$\ket{0}$} & & & & & & & & & & \\
+\lstick{$\ket{0}$} & & & & & & & & & & 
+\end{quantikz}
+
+\end{document}

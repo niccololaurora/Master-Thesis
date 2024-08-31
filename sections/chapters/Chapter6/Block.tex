@@ -142,7 +142,7 @@ an embedding circuit, an entanglement structure and a pooling circuit.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.65]{sections/chapters/Chapter6/Images/Two-Layers/two_layer.pdf}
+    \includegraphics[scale=0.65]{sections/chapters/Chapter6/Images/Two-Layers-A/two_layer.pdf}
     \caption{A four qubits and two layers \textit{block re-uploading} architecture. Each layer has three 
     components: an embedding circuit, an entanglement structure and a pooling circuit.
     Layers are separated by another entanglement structure.}
@@ -323,15 +323,42 @@ The comparison between the baseline model for different sizes of the images is s
 \end{figure}
 
 
-Each of the following sections will discuss a different size dataset ($4\times4$, $8\times8$, $12\times12$, 
-$14\times14$, $16\times16$, $18\times18$).
-Each section will discuss both the fashion and digit MNIST datasets for the two types of encoding.
+The following sections will discuss the \textit{generalization} capabilities and the 
+\textit{trainability} of the \textit{block re-uploading} architecture.
+I will group all the architectures combination in three main categories: \textit{narrow-deep} 
+(few qubits and numerous layers), \textit{wide-shallow} (many qubits and few layers), \textit{proportionate}
+(every other architecture). 
 
 
-\subsection{Images 4x4}
+\subsection{Local 4x4}
 
 
-\subsection{Images 8x8}
+\subsection{Global 4x4}
+
+
+\subsection{Local 8x8}
+
+As we can see from figure \ref{fig:heatmap-8x8-L}
+
+\begin{figure}[h]
+    \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Heatmaps/Local-Heatmaps/Heatmap-Digits-8x8-L.pdf}
+    \caption{This heatmap show the training and validation accuracy for architectures with 1-15 qubits and
+    1-6 layers.}
+    \label{fig:heatmap-8x8-L}
+\end{figure}
+
+\subsection{Global 8x8}
+
+As we can see from figure \ref{fig:heatmap-8x8-G}
+
+\begin{figure}[h]
+    \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Heatmaps/Global-Heatmaps/Heatmap-Digits-8x8-G.pdf}
+    \caption{This heatmap show the training and validation accuracy for architectures with 1-15 qubits and
+    1-6 layers.}
+    \label{fig:heatmap-8x8-G}
+\end{figure}
+
+
 
 
 
