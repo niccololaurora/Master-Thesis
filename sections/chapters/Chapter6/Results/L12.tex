@@ -1,0 +1,26 @@
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{sections/chapters/Chapter6/Images/Heatmaps/Local-Heatmaps/Heatmap-Both-12x12-L.pdf}
+    \caption{This heatmap shows the training and validation accuracy for architectures with 1-15 qubits and
+    1-6 layers for the $12\times12$ down-scaled MNIST digits and fashion dataset using a local Pauli Z.}
+    \label{fig:heatmap-12x12-L}
+\end{figure}
+
+By looking at figure \ref{fig:heatmap-12x12-L}, we can distinguish 
+three different behaviours:
+
+\begin{itemize}
+    \item \textbf{Deep-Narrow}: $8 \times 8$ vs $12 \times 12$.\\
+    Overfitting is more pronounced for narrow architectures.\\
+    In both the $8 \times 8$ and $12 \times 12$ cases, overfitting worsens as the number of layers increases. \\
+    Training accuracy remains stable for $8 \times 8$ images, but for $12 \times 12$ images, 
+    it decreases with the addition of more layers.
+    \item \textbf{Shallow-Wide}: $8 \times 8$ vs $12 \times 12$.\\
+    There aren't significant differences.\\
+    The effect of distributing information across more qubits in shallow architectures is particularly 
+    evident in the $12 \times 12$ case. For instance, when examining 2-layer architectures vertically, 
+    it's clear that spreading the information across more qubits significantly enhances both training and 
+    validation accuracy.
+    \item \textbf{Proportionate}: $8 \times 8$ vs $12 \times 12$.\\
+    Again overfitting tends to disappear. \\
+ \end{itemize}
