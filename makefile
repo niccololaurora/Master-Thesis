@@ -3,12 +3,13 @@
 
 MAIN = main
 
-all: $(MAIN).pdf
-
-$(MAIN).pdf: $(MAIN).tex 
+all: 
 	pdflatex $(MAIN).tex
 	biber $(MAIN)
 	pdflatex $(MAIN).tex
+	pdflatex $(MAIN).tex
+
+pdf: 
 	pdflatex $(MAIN).tex
 
 clean:

@@ -1,6 +1,347 @@
 
-\chapter{Block Re-Uploading}
+\chapter{A novel data encoding technique}
 
+The paper \cite{P_rez_Salinas_2020} is a groundbreaking paper in quantum machine learning.\\
+Significant effort by the quantum machine learning community has been dedicated to deepening our understanding of 
+quantum re-uploading models, leading to a growing body of literature investigating them.\\
+As we studied this paper, some natural questions emerged and we decided to investigate them by designing
+a novel data encoding technique for quantum re-uploading models, whose main goal is to classify 
+\textit{high-dimensional} and \textit{structured} datasets\footnote[1]{The term \textit{structured} is 
+used to indicate that the components of each datapoint in the dataset may be highly correlated.}.\\
+In the following sections we will discuss the questions emerged from reading the original data re-uploading
+paper and a new quantum machine learning algorithm.
+
+\section{Questions on data re-uploading}
+
+The groundbreaking paper on the data re-uploading technique \cite{P_rez_Salinas_2020} does not address some crucial 
+question, which could be an interesting starting point for future research:
+
+\begin{itemize}
+    \item\label{question:first} Is this encoding technique effective when dealing with high-dimensional datasets?\\
+    The investigation conducted by Salinas et al focused on 2D, 3D and 4D data, hence this raises the natural
+    question if this encoding method can deal with datasets of higher dimension.
+    \item\label{question:second} Is this encoding technique effective when dealing with structured dataset (as images)?\\
+    The original paper tested the data re-uploading encoding method to distinguish if a certain point was 
+    inside or outside a certain geometrical boundary (circle, sphere, annulus, ...).
+    However it did not investigate its performance on datasets, whose each datapoint's components could 
+    be correlated to each other.
+    Therefore, this raises another natural question which is if the data re-uplaoding technique can handle datasets
+    like images, whose pixels are highly correlated to the sorrounding pixels.
+\end{itemize}
+
+We tried to answer to these questions by designing a new quantum machine learning algorithm based on the
+data re-uploading technique.\\
+I will discuss this new algorithm in the following section.
+
+\section{Block re-uploading}
+
+This new algorithm, which we call \textit{block re-uploading}, is inspired by classical convolutional neural 
+networks and its main goal is to classify images.
+Images are composed of pixels, and each pixel is typically represented as a vector of three 
+values corresponding to the intensity of the primary colors: red, green, and blue (RGB). 
+Each of these values typically ranges from 0 to 255 in an 8-bit color depth image, which is common in 
+digital images.\\
+It is essential to observe that not all the information contained in an image is essential for
+classification purposes.
+Indeed, many preprocessing techniques, such as PCA, have been used in the literature to reduce 
+the amount of information fed into a (quantum) neural network.\\
+to preserve information redundancy in the images and maintain the full dimensionality of the dataset. 
+This approach aligns with our objective of addressing question \ref{question:first}.\\
+
+The fundamental idea behind the \textit{block re-uploading} algorithm is based on the observation that 
+neighboring pixels in an image are highly correlated. 
+Consequently, we chose to divide each image into blocks and upload each block onto a separate qubit\footnote[1]{We wanted to make these blocks as similar to each other as possible, but dimensional constraints 
+prevented them from being identical. For instance, an $8\times8$ image cannot be divided in three
+identical blocks.} (figure \ref{fig:block}).\\
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.65]{sections/chapters/Chapter6/Images/Blocks-Circuit/blocks.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.75]{sections/chapters/Chapter6/Images/Blocks-Circuit/circuit.pdf}
+    \end{subfigure}
+    \caption{An image with even width and height can be divided into exactly four equal blocks. 
+    Each block will then be encoded onto a separate qubit. As we will explain in the next paragraph the 
+    \textit{block re-uploading} architecture has three components per layer: embedding circuit, 
+    entanglement circuit, pooling circuit.}
+    \label{fig:block}
+\end{figure}
+
+Apart from answering to the questions \ref{question:first}, \ref{question:second}, our main goal was to 
+investigate the \textit{Depth vs Width trade-off}.
+The \textit{Depth vs Width trade-off} can be more explicitly referred to as the
+\textit{Sequential vs Parallel uploading trade-off}.
+If we do not split the image into blocks, the entire image will be encoded into a single qubit, 
+resulting in sequential distribution of information across the quantum circuit. 
+In contrast, if we divide the image into blocks and encode each block onto a separate qubit, 
+the information will be distributed both sequentially and in parallel. As the number of blocks increases, 
+the distribution of information becomes progressively more parallel, reaching the limit where each 
+block consists of a single pixel.
+This trade-off raises the natural questions: \textit{which distribution is better? Sequential or parallel?}.
+As is common when evaluating trade-offs, the optimal solution often lies between the two extremes. 
+Therefore, we predict that the best approach to distributing information across the quantum circuit 
+will involve a balanced mix of sequential and parallel encoding.\\
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Sequential-Parallel/sequential_blocks.pdf}
+        \label{fig:sequential-block}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Sequential-Parallel/proportionate_blocks.pdf}
+        \label{fig:prop-block}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Sequential-Parallel/parallel_blocks.pdf}
+        \label{fig:parallel-block}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Sequential-Parallel/sequential.pdf}
+        \label{fig:sequential-circ}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Sequential-Parallel/proportionate.pdf}
+        \label{fig:prop-circ}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Sequential-Parallel/parallel.pdf}
+        \label{fig:parallel-circ}
+    \end{subfigure}
+    \caption{This figure shows three possible splitting of a $4\times4$ image and the corresponding 
+    circuit. 
+    If the image is not divided into blocks, it will be uploaded to a single qubit, 
+    representing a fully-sequential approach. 
+    Dividing the image into 4 blocks results in a 4-qubit architecture, 
+    positioning it roughly at the midpoint of the sequential-parallel spectrum.
+    If the image is divided into 16 blocks, each block will contain only 1 pixel. 
+    This scenario exemplifies the fully-parallel uploading limit, as each pixel is assigned to 
+    a separate qubit.}
+    \label{fig:three-splitting}
+\end{figure}
+
+
+
+The \textit{block re-uploading} algorithm is a layered algorithm and each layer has three components: 
+an embedding circuit, an entanglement structure and a pooling circuit.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.65]{sections/chapters/Chapter6/Images/Two-Layers/two_layer.pdf}
+    \caption{A four qubits and two layers \textit{block re-uploading} architecture. Each layer has three 
+    components: an embedding circuit, an entanglement structure and a pooling circuit.
+    Layers are separated by another entanglement structure.}
+\end{figure}
+
+\paragraph{Embedding}
+The embedding component is responsible to encode each block of an image onto a different qubit of 
+the quantum circuit (figure \label{fig:block}).\\
+For instance, an $8\times8$ image can be divided in 4 identical $4\times4$ blocks. 
+Therefore, each $4\times4$ block is a 16 dimensional vector which requires 
+$\left\lceil \frac{d}{3} \right\rceil = \left\lceil \frac{16}{3} \right\rceil = 6$ unitary matrices 
+to be encoded onto a qubit.
+In particular, each block needs 16 rotation gates, one per pixel.
+Therefore, the unitary matrices necessary to encode a block $\bm{x} = (x_1, x_2, ..., x_{16})$ will be:
+
+\begin{align}
+    U^1_1(\bm{\phi_1}) &= U_1(\bm{x}, \bm{\theta_1}) = R_Z(\phi_{1,1}) R_Y(\phi_{1,2}) R_Z(\phi_{1,3}) \\
+    U^1_2(\bm{\phi_2}) &= U_2(\bm{x}, \bm{\theta_2}) = R_Z(\phi_{2,1}) R_Y(\phi_{2,2}) R_Z(\phi_{2,3}) \\
+    &\vdots \\
+    U^1_6(\bm{\phi_6}) &= U_1(\bm{x}, \bm{\theta_6}) = R_Z(\phi_{6,1}) R_Y(\phi_{6,2}) R_Z(\phi_{6,3}) 
+\end{align}
+
+where $\bm{\theta_i} = (w_{i,1}, w_{i,2}, w_{i,3}, b_{i,1})$.
+The angles will be defined as a linear combination of pixels and weights, for example $\bm{\phi_1}$:
+
+\begin{align}
+    \phi_{1,1} &= x_1 \cdot w_{1,1} + b_{1,1} \\
+    \phi_{1,2} &= x_2 \cdot w_{1,2} + b_{1,2} \\
+    \phi_{1,3} &= x_3 \cdot w_{1,3} + b_{1,3} \\
+\end{align}
+
+
+\begin{figure}[h]
+    \centering
+    \begin{quantikz}
+        &&& \gate{U^1_1} & \gate{U^1_2} & \gate{U^1_3} & \gate{U^1_4} & \gate{U^1_5} & \gate{U^1_6} &&& \\
+        &&& \gate{U^2_1} & \gate{U^2_2} & \gate{U^2_3} & \gate{U^2_4} & \gate{U^2_5} & \gate{U^2_6} &&& \\
+        &&& \gate{U^3_1} & \gate{U^3_2} & \gate{U^3_3} & \gate{U^3_4} & \gate{U^3_5} & \gate{U^3_6} &&& \\
+        &&& \gate{U^4_1} & \gate{U^4_2} & \gate{U^4_3} & \gate{U^4_4} & \gate{U^4_5} & \gate{U^4_6} &&& \\
+    \end{quantikz}
+    \caption{Embedding circuit for an $8\times8$ image divided in 4 identical $4\times4$ blocks.}
+\end{figure}
+
+
+\paragraph{Entanglement structure}
+Since each block is correlated with its neighboring blocks, we decided to use an entanglement 
+structure in which entangling gates create connections between adjacent blocks.
+We chose CZ, as the only entangling gate.
+Therefore, the entanglement structure aims to ensure that each qubit shares information only with 
+qubits that contain related information.
+
+\begin{figure}[h]
+    \centering
+    \begin{quantikz}
+        &&& \ctrl{1} & \ctrl{2}   &       &     &&&&\\
+        &&& \targ{}  &    &       &   \ctrl{2}    &     &&&\\
+        &&&    &        \targ{}    &       &   & \ctrl{1}   &&&\\
+        &&&    &     &    &       \targ{}   &   \targ{}  &&&\\
+    \end{quantikz}
+    \caption{Entanglement structure for an image divided in 4 blocks. The first qubit will 
+    communicate with the second one and the third one, as the first block is adjacent to the second and the third one.
+    Then, the second block will be connected to the fourth one and the third to fourth one.}
+\end{figure}
+
+\paragraph{Pooling}
+In classical machine learning the pooling layers are used to make the network less sensitive to small translations 
+and distortions in the input data.\\
+Therefore, we decided to mimic the pooling component of classical convolutional neural networks, by 
+adding an X rotation gate per qubit, whose angle is defined as the linear combination of the max (or average) value 
+of a block and weights.
+Therefore, if we consider again an $8\times8$ image divided in 4 identical $4\times4$ blocks: 
+
+\begin{align}
+    \bm{x_1} &= (x_{1,1}, x_{1,2}, ..., x_{1,16}) 
+    \qquad
+    \rightarrow
+    \qquad
+    max(\bm{x_1}) \\
+    \bm{x_2} &= (x_{2,1}, x_{2,2}, ..., x_{2,16}) 
+    \qquad
+    \rightarrow
+    \qquad
+    max(\bm{x_2}) \\
+    \bm{x_3} &= (x_{3,1}, x_{3,2}, ..., x_{3,16}) 
+    \qquad
+    \rightarrow
+    \qquad
+    max(\bm{x_3}) \\
+    \bm{x_4} &= (x_{4,1}, x_{4,2}, ..., x_{4,16}) 
+    \qquad
+    \rightarrow
+    \qquad
+    max(\bm{x_4}) \\
+\end{align}
+
+the angles of the four X rotation gates will be:
+
+\begin{align}
+    \phi_{1} &= max(\bm{x_1}) \cdot w_{1} + b_{1} \\
+    \phi_{2} &= max(\bm{x_2}) \cdot w_{2} + b_{2} \\
+    \phi_{3} &= max(\bm{x_3}) \cdot w_{3} + b_{3} \\
+    \phi_{4} &= max(\bm{x_4}) \cdot w_{4} + b_{4} \\
+\end{align}
+
+
+\begin{figure}[h]
+    \centering
+    \begin{quantikz}
+        &&& \gate{R^1_x} &&& \\
+        &&& \gate{R^2_x} &&& \\
+        &&& \gate{R^3_x} &&& \\
+        &&& \gate{R^4_x} &&& \\
+    \end{quantikz}
+    \caption{Pooling circuit for a 4 qubit architecture.}
+\end{figure}
+
+
+Moreover, another fundamental concept of the \textit{block re-uploading} algorithm is that the 
+number of qubits of the architecture corresponds to the number of blocks in which we divided the 
+image, our main goal is to understand what is the optimal archi
+
+
+\section{Numerical results}
+
+We conducted several numerical test on the \textit{block re-uploading} architecture:
+
+\begin{itemize}
+    \item Classification.\\
+    We conducted both binary and multi-class classification.
+    \item Dataset.\\
+    We used both the MNIST digit and MNIST fashion datasets, which are both grayscale $28\times28$ pixels images.
+    \item Image size.\\
+    We used different down-scaling of the MNIST dataset:
+    $4\times4$, $8\times8$, $12\times12$, $14\times14$, $16\times16$, $18\times18$.
+    \item Decoding observable.\\
+    Every quantum machine learning algorithm has a \textit{decoding} component at the end of it, which consists in 
+    measuring an observable to extract information from the PQC.
+    The observable that we chose are: \textit{global Pauli Z}, which is the tensor product of n (number of qubits
+    of the circuit) Pauli Z, \textit{local Pauli Z}, which is only one Pauli Z.
+    Regarding the local Pauli Z measurement, in the block re-uploading architecture with multiple qubits, 
+    we had the option to measure any qubit. However, we consistently chose to measure only the first qubit.
+    \item Architectures.\\
+    We studied three different architectures.
+    The first one has only the embedding component, the second one has both the embedding and pooling components, the third
+    one has the embedding, entanglement and pooling components.
+    These architectures differ in terms of the number of gates and parameters they utilize, as shown by
+    figure  
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{sections/chapters/Chapter6/Images/Architectures/embedding.pdf}
+    \caption{This is the baseline model. This model only re-uploads multiple times the data in the circuit.}
+    \label{arc:embed}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{sections/chapters/Chapter6/Images/Architectures/embedding_pooling.pdf}
+    \caption{This model has both the embedding and the pooling circuit.}
+    \label{arc:embed-pooling}
+\end{figure}
+
+It is essential to keep in mind that by increasing the size of images the number of embedding gates will
+increase, hence an embedding architecture (baseline model) for $4\times4$ images will be different 
+from the embedding architecture for $8\times8$.
+The comparison between the baseline model for different sizes of the images is shown in figure 
+\ref{arc:embed-pooling}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.4]{sections/chapters/Chapter6/Images/Image-Size/Heatmap-Comparison-Arch.pdf}
+    \caption{The first row displays the number of parametric gates (excluding entangling gates) for 
+    different image sizes across two architectures: embedding and embedding + pooling.
+    The second row displays the number of trainable parameters for 
+    different image sizes across two architectures: embedding and embedding + pooling.}
+    \label{arc:embed-pooling}
+\end{figure}
+
+
+Each of the following sections will discuss a different size dataset ($4\times4$, $8\times8$, $12\times12$, 
+$14\times14$, $16\times16$, $18\times18$).
+Each section will discuss both the fashion and digit MNIST datasets for the two types of encoding.
+
+
+\subsection{Images 4x4}
+
+
+\subsection{Images 8x8}
+
+
+
+\subsection{Images 12x12}
+
+
+\subsection{Images 14x14}
+
+
+\begin{comment}
 \section{Data Re-Uploading}
 
 \cite{P_rez_Salinas_2020} introduced the \textit{re-uploading} encoding technique,
@@ -42,6 +383,7 @@ combination of weights and coordinates of the data\footnote[1]{Just like in a ne
 
 \begin{equation}
     U(\bm{\phi}) = R_Z(\phi_1) R_Y(\phi_2) R_Z(\phi_3)
+\label{}
 \end{equation}
 
 For instance, if data is 3-dimensional $\bm{x} = (x_1, x_2, x_3)$:
@@ -72,6 +414,6 @@ one layer of the architectures.
     architecture.}
 \end{figure}
 
+\end{comment}
 
-\section{Trainability}
 
