@@ -1,19 +1,33 @@
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.3]{sections/chapters/Chapter6/Images/Heatmaps/Global-Heatmaps/Heatmap-Both-12x12-G.pdf}
-    \caption{This heatmap shows the training and validation accuracy for architectures with 1-15 qubits and
-    1-6 layers for the $12\times12$ down-scaled MNIST digits and fashion dataset using a global Pauli Z.}
+    \caption{This heatmap shows the training and validation accuracy for the $12\times12$ 
+    down-scaled MNIST digits and fashion dataset using a global Pauli Z.}
     \label{fig:heatmap-12x12-G}
 \end{figure}
 
+By enlarging the images, we observe a consistent trend across all categories 
+(deep-narrow, shallow-wide, proportionate): the accuracy systematically decreases.
+Moreover, overfitting appears even for 2-layers architectures (for instance we can see overfitting for the 
+3 qubits and 2 layers architectures).
+We can observe that the behavior seen with $8 \times 8$ images is similarly observed with 
+$12 \times 12$ images, but \textit{shifted to the left by one or two layers}. This shift 
+occurs because the increased number of parameters in each layer makes the model more prone to overfitting.
 By looking at figure \ref{fig:heatmap-12x12-G}, we can distinguish 
 three different behaviours:
 
 \begin{itemize}
-    \item \textbf{Deep-Narrow}: $8 \times 8$ vs $12 \times 12$.\\
-    
-    \item \textbf{Shallow-Wide}: $8 \times 8$ vs $12 \times 12$.\\
-    
-    \item \textbf{Proportionate}: $8 \times 8$ vs $12 \times 12$.\\
-    
+    \item \textbf{Deep vs Shallow}: $8\times8$ vs $12\times12$.\\
+    It is evident that deep architectures lose the generalization capabilities of shallow architectures:
+    almost every architecture with 3 or more layers shows signs of overfitting.
+    In the $8\times8$ we have clear signs of overfitting only for architectures with 5 or 6 layers.
+    \item \textbf{Deep-Narrow}: $8\times8$ vs $12\times12$.\\
+    Once again, we observe that increasing the number of layers leads to overfitting. 
+    Compared to the $8 \times 8$ case, the overfitting is more pronounced in this instance.
+    \item \textbf{Shallow-Wide}: $8\times8$ vs $12\times12$.\\
+    There are no substantial differences between the $8\times8$ and $12\times12$ scenarios.
+    \item \textbf{Proportionate}: $8\times8$ vs $12\times12$.\\
+    In proportionate architectures, the shifting behavior of overfitting and accuracy 
+    is evident: the drop in accuracy that occurs as the number of layers increases in the $8 \times 8$ 
+    images appears a few layers earlier in the $12 \times 12$ scenario.
  \end{itemize}
