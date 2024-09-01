@@ -27,7 +27,34 @@ impact of limited information sharing in wider architectures.\\
 
 This intriguing behavior warrants a detailed discussion. 
 In this section, we will analyze the evolution of loss functions and accuracies over 200 epochs, 
-as illustrated in figures \ref{fig:Single-loss-local} and \ref{fig:Single-loss-global}
+as illustrated in figures \ref{fig:Single-loss-local} and \ref{fig:Single-loss-global}.
+
+\begin{itemize}
+    \item \textbf{Training Loss}.\\ 
+    An examination of the global and local training losses reveals that the 1-qubit configuration 
+    has the lowest loss, with losses increasing as the number of qubits 
+    increases\footnote[1]{This observation holds true except for the global 11-qubit configuration, 
+    which appears as an outlier. This anomaly could be addressed by conducting a statistical analysis 
+    with multiple training runs using different initialization seeds.}.
+    As the number of qubits increases, the architecture becomes more challenging to train, resulting 
+    in a higher loss function plateau in performance.
+    \item \textbf{Validation Loss}.\\ 
+    For validation loss, the trend of loss decreasing with the number of qubits is consistent 
+    in the local case but not in the global case, where the losses are mixed.
+    \item \textbf{Training-Validation Accuracy}.\\
+    The local accuracy exhibits numerical instability as the number of qubits increases. 
+    Initially smooth, the accuracy becomes increasingly "stair-stepped" with more qubits, 
+    and eventually levels off, becoming constant for 14-qubit and 15-qubit architectures. 
+    This progression illustrates how numerical instability becomes more pronounced with a 
+    larger number of qubits.\\
+    We can assert that the local 9-qubits (or 8-qubits) architecture represents the threshold beyond which numerical 
+    instability becomes more pronounced.\\
+    It is noteworthy that \textit{numerical instability is not observed in the global case}. 
+    A possible explanation is that a global observable aggregates more information, which may 
+    help mitigate the numerical instability seen when measuring an individual qubit.
+\end{itemize}
+
+
 
 
 

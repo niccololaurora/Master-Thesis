@@ -1,0 +1,42 @@
+
+The future investigations of the \textit{block re-uploading} will be numerous:
+
+\begin{itemize}
+    \item \textbf{Architectures}: progressive addition of features.\\
+    Thus far we have mostly investigated the following architecture:
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.65]{sections/chapters/Chapter6/Images/Two-Layers-A/two_layer.pdf}
+        \caption{A four qubits and two layers \textit{block re-uploading} architecture. Each layer has three 
+        components: an embedding circuit, an entanglement structure and a pooling circuit.
+        Layers are separated by another entanglement structure.}
+    \end{figure}
+
+    In the future, we plan to explore simpler architectures before advancing to the more 
+    complex \textit{block re-uploading} architecture. 
+    Our plan will be bottom-up approach, where we will progressively add new features to the baseline model, 
+    which has only the \textit{embedding} component (figure).
+    Therefore, after studying the baseline model, we will explore the architectures with the 
+    \textit{embedding} and \textit{pooling} components and finally we will study the architectures 
+    with the \textit{embedding}, \textit{pooling} and \textit{entanglement} components.
+    This step-by-step investigation will 
+    help us assess the effectiveness of each component added to the baseline \textit{embedding} model.
+
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.6\textwidth}
+            \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Architectures/embedding.pdf}
+        \caption{Baseline model.}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.6\textwidth}
+            \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Architectures/embedding_pooling.pdf}
+        \caption{Baseline model with the pooling feature.}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.6\textwidth}
+            \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Two-Layers-B/two_layers_B.pdf}
+        \caption{Baseline model with the pooling and entanglement features.}
+        \end{subfigure}
+    \end{figure}
+
+\end{itemize}
