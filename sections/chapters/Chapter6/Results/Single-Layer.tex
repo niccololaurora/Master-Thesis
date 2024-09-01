@@ -1,17 +1,35 @@
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.42]{sections/chapters/Chapter6/Images/Single-Layer/single-layer-comparison-loss-8x8.pdf}
-    \caption{This figure shows the training and validation loss for single-layer architectures
-    trained on the $8\times8$ down-scaled MNIST digits dataset using a local Pauli Z.}
-    \label{fig:Single-loss}
+    \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Single-Layer/single-layer-comparison-compact-local-8x8.pdf}
+    \caption{This figure shows the training and validation loss and accuracy for single-layer architectures
+    trained on the $8\times8$ down-scaled MNIST digits dataset using a \textbf{local} Pauli Z.}
+    \label{fig:Single-loss-local}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.42]{sections/chapters/Chapter6/Images/Single-Layer/single-layer-comparison-accuracy-8x8.pdf}
-    \caption{This figure shows the training and validation accuracy for single-layer architectures
-    trained on the $8\times8$ down-scaled MNIST digits dataset using a local Pauli Z.}
-    \label{fig:Single-accuracy}
+    \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Single-Layer/single-layer-comparison-compact-global-8x8.pdf}
+    \caption{This figure shows the training and validation loss and accuracy for single-layer architectures
+    trained on the $8\times8$ down-scaled MNIST digits dataset using a \textbf{global} Pauli Z.}
+    \label{fig:Single-loss-global}
 \end{figure}
+
+
+As observed in subsection \ref{sssec:num1} and illustrated by the first column of the heatmap 
+\ref{fig:heatmap-8x8-L}, there is a notable decrease in accuracy as the architectures become wider.\\
+This behavior is not observed in the global case: as shown in heatmap \ref{fig:heatmap-8x8-G}, 
+the accuracy remains stable as the architectures become wider, without the same significant drop.
+This difference between the local and global cases can be attributed to the \textit{entanglement dynamics} and 
+the \textit{type of observable used for decoding}. 
+In the local case, the lack of entanglement limits information sharing across qubits. 
+In contrast, a global observable, which aggregates information from all qubits, mitigates the 
+impact of limited information sharing in wider architectures.\\
+
+This intriguing behavior warrants a detailed discussion. 
+In this section, we will analyze the evolution of loss functions and accuracies over 200 epochs, 
+as illustrated in figures \ref{fig:Single-loss-local} and \ref{fig:Single-loss-global}
+
+
+
 
 
