@@ -1,12 +1,11 @@
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{\textwidth}
-        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Trainability/variance-qubits-layer-local-uniform.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{\textwidth}
-        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Trainability/variance-qubits-layer-global-uniform.pdf}
-    \end{subfigure}
-    \label{fig:local-uniform}
+    \includegraphics[wide=\textwidth]{sections/chapters/Chapter6/Images/Trainability/Global-Uniform-Layers.pdf}
+    \caption{In the first and second row this figure shows two plots: \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}, 
+    \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits}.
+    The difference between the two rows is that in the first one we used a local Pauli Z, whereas in the
+    second one we used a global Pauli Z.
+    The y axis is in log scale.}
 \end{figure}
 
 
@@ -27,9 +26,30 @@ the foundational paper by \cite{McClean_2018}:
         barren plateaus can be defined either through the loss function or its gradient. 
         This approach would have been computationally more efficient.
     };
-    \item We computed the mean value of the absolute gradient $\langle |\nabla_{\bm{\theta}}J| \rangle$;
+    \item We computed the variance value of the absolute gradient $Var(|\nabla_{\bm{\theta}}J|)$;
 \end{itemize}
 
+Our approach differs from the original paper on barren plateaus, as \cite{McClean_2018} 
+used architectures with only parameters in their parametric gates, without data embedding. 
+In contrast, the \textit{block re-uploading} architecture incorporates both data and parameters 
+in every parametric gate.\\
+
+We studied the trainability of the \textit{block re-uploading} architecture with two different decodings:
+local Pauli Z and global Pauli Z.\\ 
+By comparing the two decoding scenarios, we can notice that the general behaviour is the same, 
+but by looking at the plot \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} in the global case 
+the plateaus are reached at a much faster pace than the local case.
+In both cases of \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}, we observe that the variance 
+is inversely correlated with the number of qubits: as the number of qubits increases, 
+the variance decreases.
+Moreover, since both plots are in log scale, by looking at 
+\textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} we can notice that as the number of layers increases 
+$Var(|\nabla_{\bm{\theta}}J|)$ is exponentially suppressed\footnote[1]{A straight-line function 
+with a negative slope on a logarithmic scale corresponds to a negative exponential function 
+on a linear scale.}.
+This means that as the architectures become deeper they become much more prone to barren plateaus:
+the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} plot tells us the number of layers available for
+each architecture before ending up in barren plateaus territory.
 
 
 \begin{figure}[h]
