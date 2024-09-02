@@ -107,14 +107,15 @@ The future investigations of the \textit{block re-uploading} will be numerous:
     certain properties of tensor networks to transform one architecture with a fixed number of 
     qubits and layers into another architecture with a different number of qubits and layers.
 
-    For instance, we could consider a 1-qubit and 4-layers circuit (figure \ref{fig:1q-4l}), and by 
-    exploitining tensor networks' properties we can bend it in a 2-qubits and 4-layers circuit 
-    (figure \ref{fig:2q-4l}).
-    Finally we can then bend it again in a 4-qubits and 1-layer quantum circuit (figure \ref{fig:4q-1l}).
-    This heuristic argument could be the trail to prove that \textit{a deep circuit is equivalent to a 
-    wide circuit}, thus we could more generally prove a relation between the depth of a circuit and 
-    its width\footnote[1]{The diagrams \ref{fig:1q-4l}, \ref{fig:2q-2l}, \ref{fig:4q-1l} suggest 
-    that an architecture of a certain depth d is equivalent to an architecture with width $w = d$.}
+    For example, consider a 1-qubit, 4-layer circuit (see Figure \ref{fig:1q-4l}). By leveraging 
+    the properties of tensor networks, we can transform this circuit into a 2-qubit, 4-layer circuit 
+    (see figure \ref{fig:2q-4l}). Further, we can bend it once more to obtain a 4-qubit, 
+    1-layer circuit (see Figure \ref{fig:4q-1l}). This heuristic argument suggests a potential path 
+    for demonstrating that \textit{a deep circuit is equivalent to a wide circuit}. 
+    More broadly, it implies a relationship between the depth and width of a 
+    circuit\footnote[1]{Figures \ref{fig:1q-4l}, \ref{fig:2q-4l}, and \ref{fig:4q-1l} indicate 
+    that an architecture with a certain depth $d$ can be equivalent to an architecture with width 
+    $w = d$.}.
     
     
     an equivalence between layers and qubits: 
@@ -125,27 +126,29 @@ The future investigations of the \textit{block re-uploading} will be numerous:
 
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/1qubit4layers.pdf}
+        \begin{subfigure}[b]{\textwidth}
+            \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/1qubit4layers.pdf}
         \caption{This is a 1-qubit 4-layers quantum circuit. The blue circle and green circle represents two
         different components of a single layer. The red triangle represents the input state, whereas the 
         gray semi-circle represents the measurement.}
         \label{fig:1q-4l}
-    \end{figure}
-
-
-    \begin{figure}[h]
+        \end{subfigure}
+        \begin{subfigure}[b]{\textwidth}
+        \vspace{10pt}
         \centering
-        \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/2layers2qubits.pdf}
+            \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/2layers2qubits.pdf}
         \caption{By bending the 1-qubit 4-layers quantum circuit, we obtain a 2-qubits 2-layers circuit.}
         \label{fig:2q-2l}
-    \end{figure}
-
-
-    \begin{figure}[h]
+        \end{subfigure}
+        \begin{subfigure}[b]{\textwidth}
+        \vspace{10pt}
         \centering
-        \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/4qubits1layer.pdf}
+            \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/4qubits1layer.pdf}
         \caption{By bending the 2-qubit 2-layers quantum circuit, we obtain a 4-qubits 1-layer circuit.}
         \label{fig:4q-1l}
+        \end{subfigure}
+        \caption{This figure show how we can transform a 1-qubit 4-layers architecture in 4-qubits 1-layer 
+        circuit by exploiting tensor networks' properties.}
     \end{figure}
 
     
