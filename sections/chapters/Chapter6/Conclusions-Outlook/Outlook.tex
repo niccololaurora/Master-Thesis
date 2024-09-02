@@ -2,7 +2,7 @@
 The future investigations of the \textit{block re-uploading} will be numerous:
 
 \begin{itemize}
-    \item \textbf{Architectures}: progressive addition of features.\\
+    \item \textbf{Architectures}.\\
     Thus far we have mostly investigated the following architecture:
 
     \begin{figure}[h]
@@ -15,7 +15,7 @@ The future investigations of the \textit{block re-uploading} will be numerous:
 
     In the future, we plan to explore simpler architectures before advancing to the more 
     complex \textit{block re-uploading} architecture. 
-    Our plan will be bottom-up approach, where we will progressively add new features to the baseline model, 
+    Our plan will be a bottom-up approach, where we will \textit{progressively add new features} to the baseline model, 
     which has only the \textit{embedding} component (figure).
     Therefore, after studying the baseline model, we will explore the architectures with the 
     \textit{embedding} and \textit{pooling} components and finally we will study the architectures 
@@ -26,17 +26,129 @@ The future investigations of the \textit{block re-uploading} will be numerous:
     \begin{figure}[h]
         \centering
         \begin{subfigure}[b]{\textwidth}
-            \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Architectures/embedding.pdf}
-        \caption{Baseline model.}
+            \centering
+            \includegraphics[scale=0.58]{sections/chapters/Chapter6/Images/Architectures/embedding.pdf}
+        \caption*{Baseline model.}
         \end{subfigure}
         \begin{subfigure}[b]{\textwidth}
-            \includegraphics[scale=0.6]{sections/chapters/Chapter6/Images/Architectures/embedding_pooling.pdf}
-        \caption{Baseline model with the pooling feature.}
+            \centering
+            \includegraphics[scale=0.62]{sections/chapters/Chapter6/Images/Architectures/embedding_pooling.pdf}
+        \caption*{Baseline model with pooling feature.}
         \end{subfigure}
         \begin{subfigure}[b]{\textwidth}
-            \includegraphics[scale=0.7]{sections/chapters/Chapter6/Images/Two-Layers-B/two_layers_B.pdf}
-        \caption{Baseline model with the pooling and entanglement features.}
+            \centering
+            \includegraphics[scale=0.68]{sections/chapters/Chapter6/Images/Two-Layers-B/two_layers_B.pdf}
+        \caption*{Baseline model with pooling and entanglement features.}
         \end{subfigure}
     \end{figure}
+
+    \item \textbf{Initialization}.\\
+    Another interesting line of research could be to test different parameters initialization (thus far
+    we tested only gaussian and uniform) to increase the architectures' \textit{layers budget}.
+    
+    \item \textbf{Warm-Up start}.\\
+    So far, we have trained each architecture from scratch. In future experiments, we plan to explore 
+    a new training strategy where an architecture with $L-1$ layers is first trained, and then, 
+    for training an architecture with $L$ layers, we initialize the parameters of the first $L-1$ 
+    layers using the trained parameters from the $L-1$ layer architecture.\\
+    This a technique of \textit{transfer learning}.
+
+    \item \textbf{Are shallow architectures contained in deep architectures?}.\\
+    We would like to answer to this question for three different quantum re-uploading models:
+    quantum re-uploading models where data and parameters are embedded in the same gates\footnote[1]{The 
+    \textit{block re-uploading} architecture belongs to this first category}, 
+    quantum re-uploading models where data and parameters are separated and the general 
+    case\footnote[2]{In this final case, we aim to demonstrate that deep architectures inherently 
+    include shallow architectures, even when considering architectures with varying numbers of qubits.}.\\
+    Let's discuss these three categories separately.
+
+    Regarding the first category, we can discuss it by considering the \textit{block re-uploading} 
+    architecture.
+    If we consider a two-layers \textit{block re-uploading} architecture, it is clear that by simply 
+    initializing to zero the trainable parameters of the second layer we obtain a one-layer 
+    \textit{block re-uploading} architecture.
+    Therefore, every function that a one-layer \textit{block re-uploading} architecture can express can be 
+    expressed by a two-layers \textit{block re-uploading} architecture.\\
+    This opens up the question: \textit{Is it always true that deeper architectures contain 
+    shallower ones?}\\
+    
+    If we consider a different data re-uploading approach where data and trainable parameters are 
+    embedded in separate gates (second category) (figure \ref{fig:separate-data-var}), 
+    determining whether deeper architectures inherently contain shallower ones becomes more complex.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.7]{sections/chapters/Chapter6/Images/Separate-Data-Parameters/separate_data_param.pdf}
+    \caption{This data re-uploading model has the variational component separated from the data embedding one.}
+    \label{fig:separate-data-var}
+    \end{figure}
+
+    We could prove that a 2-layers architecture contains a 1-layer by adjusting the parameters $\theta_2$, 
+    such that the quantum state $|\psi \rangle$ output from the first layer becomes an eigenvector 
+    of the second layer.\\
+    The crucial observation is that the data-embedding gates of the second layer, $U_2(x)$, 
+    will first act on $|\psi \rangle$. Therefore, we need to adjust the parameters $\theta_2$ 
+    to account for the effect of $U_2(x)$.\\
+
+    Another approach to demonstrating that deep architectures contain shallower ones, when the data 
+    embedding and variational components are separate, involves using \textit{truncated Fourier series}. 
+    According to \cite{Schuld_2021}, quantum models can be represented as truncated Fourier series. 
+    Thus, we could explore whether deep architectures contain shallower ones by showing that the 
+    truncated Fourier series associated with a deep architecture includes more terms than the series 
+    associated with a shallower architecture.\\
+
+    Finally for the general case we could use \textit{tensor networks} to prove that deep 
+    architectures contain shallower ones even if we consider architectures with varying number of 
+    qubits.\\
+    Every quantum circuit can be mapped to a tensor network\footnote[3]{While this is 
+    always true, the reverse is not: the statement \textit{every tensor network is a quantum 
+    circuit} is false. This is because quantum circuits impose specific constraints on tensor 
+    networks, such as requiring the gates to be unitary matrices.}. Therefore, we can leverage 
+    certain properties of tensor networks to transform one architecture with a fixed number of 
+    qubits and layers into another architecture with a different number of qubits and layers.
+
+    For instance, we could consider a 1-qubit and 4-layers circuit (figure \ref{fig:1q-4l}), and by 
+    exploitining tensor networks' properties we can bend it in a 2-qubits and 4-layers circuit 
+    (figure \ref{fig:2q-4l}).
+    Finally we can then bend it again in a 4-qubits and 1-layer quantum circuit (figure \ref{fig:4q-1l}).
+    This heuristic argument could be the trail to prove that \textit{a deep circuit is equivalent to a 
+    wide circuit}, thus we could more generally prove a relation between the depth of a circuit and 
+    its width\footnote[1]{The diagrams \ref{fig:1q-4l}, \ref{fig:2q-2l}, \ref{fig:4q-1l} suggest 
+    that an architecture of a certain depth d is equivalent to an architecture with width $w = d$.}
+    
+    
+    an equivalence between layers and qubits: 
+    $\# qubits = \# layers$.
+    However, if we want to come back to the proof of the initial statement that \textit{deep architectures 
+    contain shallower ones} by freeing-up the state preparation (which is the red triangle in the 
+    diagrams) and measurement (gray semicircle in the diagrams) 
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/1qubit4layers.pdf}
+        \caption{This is a 1-qubit 4-layers quantum circuit. The blue circle and green circle represents two
+        different components of a single layer. The red triangle represents the input state, whereas the 
+        gray semi-circle represents the measurement.}
+        \label{fig:1q-4l}
+    \end{figure}
+
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/2layers2qubits.pdf}
+        \caption{By bending the 1-qubit 4-layers quantum circuit, we obtain a 2-qubits 2-layers circuit.}
+        \label{fig:2q-2l}
+    \end{figure}
+
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/4qubits1layer.pdf}
+        \caption{By bending the 2-qubit 2-layers quantum circuit, we obtain a 4-qubits 1-layer circuit.}
+        \label{fig:4q-1l}
+    \end{figure}
+
+    
+
 
 \end{itemize}
