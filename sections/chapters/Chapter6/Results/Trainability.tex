@@ -1,15 +1,14 @@
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{sections/chapters/Chapter6/Images/Trainability/variance-qubits-glob-loc.pdf}
-    \caption{In the first and second row this figure shows two plots: \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}, 
-    \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits}.
-    The difference between the two rows is that in the first one we used a local Pauli Z, whereas in the
-    second one we used a global Pauli Z.
-    The y axis is in log scale.}
+    \includegraphics[width=0.9\textwidth]{sections/chapters/Chapter6/Images/Trainability/variance-qubits-glob-loc.pdf}
+    \caption{The first row compares the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} plots for the local (left)
+    and global (right) case with a uniform initialization of the parameters ranging [-$\pi$, $\pi$].
+    The first row compares the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} plots for the local (left)
+    and global (right) case with a uniform initialization of the parameters ranging [-$\pi$, $\pi$].
+    By local and global case we intend that we either used local Pauli Z or global Pauli Z, as the 
+    decoding method.}
+    \label{fig:uniform-init}
 \end{figure}
-
-
-
 
 We investigated the \textit{trainability} of the \textit{block re-uploading} architecture. 
 The plots in figure \ref{fig:local-uniform} were produced following the procedure introduced by 
@@ -36,25 +35,56 @@ in every parametric gate.\\
 
 We studied the trainability of the \textit{block re-uploading} architecture with two different decodings:
 local Pauli Z and global Pauli Z.\\ 
-By comparing the two decoding scenarios, we can notice that the general behaviour is the same, 
-but by looking at the plot \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} in the global case 
-the plateaus are reached at a much faster pace than the local case.
-In both cases of \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}, we observe that the variance 
-is inversely correlated with the number of qubits: as the number of qubits increases, 
-the variance decreases.
-Moreover, since both plots are in log scale, by looking at 
-\textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} we can notice that as the number of layers increases 
-$Var(|\nabla_{\bm{\theta}}J|)$ is exponentially suppressed\footnote[1]{A straight-line function 
-with a negative slope on a logarithmic scale corresponds to a negative exponential function 
-on a linear scale.}.
-This means that as the architectures become deeper they become much more prone to barren plateaus:
-the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} plot tells us the number of layers available for
-each architecture before ending up in barren plateaus territory.
+
+\begin{enumerate}
+    \item \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}: Global vs Local.\\
+    By comparing the two decoding scenarios, we can notice a common behaviour:
+    initially, there is an exponential decrease in variance for the first few layers (which is more pronounced 
+    in the local case), after which the variance levels off and reaches a plateau.
+    The primary difference between the global and local cases is that in the global case, 
+    the plateau is reached more quickly.\\
+    It is particularly noteworthy that as the number of qubits increases, 
+    the plateaus in both the global and local cases become progressively lower.
+    This behaviour indicates that the variance is inversely proportionate to the number of qubits.\\
+    Finally, we can examine the architecture’s \textit{layers budget} before reaching barren 
+    plateaus\footnote[1]{By \textit{layers budget}, we refer to the number of layers an architecture 
+    can accommodate before encountering a barren plateau. For this analysis, we define the 
+    threshold for a barren plateau as $10^{-4}$}.\\
+    In the local case, every qubit architecture maintains 
+    a non-zero \textit{layers budget} (L1). For architectures with fewer qubits, this budget is effectively 
+    unlimited as the plateau is above $10^{-4}$ (L2). However, as the number of qubits increases, 
+    the layers budget decreases, with the 16-qubit architecture having a layers budget ranging from 
+    0 to 8 (L3)\footnote[2]{I have indicated with (L1), (L2), (L3) to express that those three 
+    observations are valid only for the local case.}. 
+    In contrast, the global case shows a different behavior: architectures with 14, 15, and 
+    16 qubits have no \textit{layers budget}, indicating that they are almost untrainable.\\
+    Moreover, the local and global cases reveals distinct behaviors for single-layer architectures: 
+    in the local case, the variance for different qubit architectures is concentrated within the range 
+    [$10^{-3}$, $10^{-1}$]; in contrast, for the global case, as the number of qubits increases, 
+    the variance progressively decreases, ranging from [$10^0$, $10^5$].
+
+    \item \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits}: Global vs Local.\\
+    Since both plots are in log scale, by looking at 
+    \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} we can notice that as the number of layers increases 
+    $Var(|\nabla_{\bm{\theta}}J|)$ is exponentially suppressed\footnote[1]{A straight-line function 
+    with a negative slope on a logarithmic scale corresponds to a negative exponential function 
+    on a linear scale.}. 
+    In both cases (global and local), we observe that the variance 
+    is inversely correlated with the number of qubits: as the number of qubits increases, 
+    the variance decreases.
+\end{enumerate}
+
+
+After examining \textit{uniform initialization} (see figure \ref{fig:local-uniform}), we evaluated 
+\textit{Gaussian initialization} (shown in figure \ref{fig:local-gauss}) for local decoding. However, 
+we observed no significant differences between the two initialization methods.
 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Trainability/variance-qubits-layer-local-uniform.pdf}
-    \caption{This figure shows}
+    \caption{The figure shows the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} and
+    \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} plots with a local decoding
+    and a gaussian initialization of the parameters ($\mu = 1$, $\sigma = 1$).}
     \label{fig:local-gauss}
 \end{figure}
