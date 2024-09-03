@@ -9,26 +9,21 @@
 
     \definecolor{pastelbrown}{RGB}{153,101,21}
     \definecolor{pastelred}{RGB}{255,182,193}
-    % Draw the line and label it as equivalent to the identity matrix
-    \draw[thick] (1,0) -- (4,0);
     
-    % Draw the identity matrix
-    \node at (6,0) {= $\mathbb{I} = \begin{pmatrix}
+    % First
+    \draw[thick] (1.5,-1.5) -- (4,-1.5);
+    \node at (6,-1.5) {= $\mathbb{I} = \begin{pmatrix}
         1 & 0 \\
         0 & 1
     \end{pmatrix}$};
     
-    % Draw the curved line and label it as equivalent to the vector (1,0,0,1)
-    \draw[thick] (3,-1) to[out=-170,in=170] (3,-3);
+    % Second
+    \draw[thick] (3,-2.5) to[out=-170,in=170] (3,-4.5);
+    \node at (7,-3.5) {= vec($\mathbb{I}$) = $(1,0,0,1)^T$};
     
-    % Draw the vector
-    \node at (7,-2) {= vec($\mathbb{I}$) = $(1,0,0,1)^T$};
-
-    % Draw the curved line and label it as equivalent to the vector (1,0,0,1)
-    \draw[thick] (1,-5) to[out=-10,in=10] (1,-7);
-    
-    % Draw the vector
-    \node at (4,-6) {= vec($\mathbb{I}$) = $(1,0,0,1)$ = };
+    % Third
+    \draw[thick] (1.5,-5) to[out=-10,in=10] (1.5,-7);
+    \node at (4.5,-6) {= vec($\mathbb{I}$) = $(1,0,0,1)$ = };
 
     \draw[thick] (7,-5.5) to (10,-5.5);
     \draw[thick] (7,-6.5) to (10,-6.5);
