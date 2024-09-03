@@ -104,8 +104,16 @@ The future investigations of the \textit{block re-uploading} will be numerous:
     always true, the reverse is not: the statement \textit{every tensor network is a quantum 
     circuit} is false. This is because quantum circuits impose specific constraints on tensor 
     networks, such as requiring the gates to be unitary matrices.}. Therefore, we can leverage 
-    certain properties of tensor networks to transform one architecture with a fixed number of 
+    certain properties of tensor networks (figure \ref{fig:tensor-prop}) to transform one architecture with a fixed number of 
     qubits and layers into another architecture with a different number of qubits and layers.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Tensor-Networks/TN-properties.pdf}
+        \caption{Some useful properties of tensor networks to transform a quantum circuit with a certain 
+        topology into a quantum circuit with a different topology.}
+        \label{fig:tensor-prop}
+    \end{figure}
 
     For example, consider a 1-qubit, 4-layer circuit (see Figure \ref{fig:1q-4l}). By leveraging 
     the properties of tensor networks, we can transform this circuit into a 2-qubit, 4-layer circuit 
@@ -115,11 +123,7 @@ The future investigations of the \textit{block re-uploading} will be numerous:
     More broadly, it implies a relationship between the depth and width of a 
     circuit\footnote[1]{Figures \ref{fig:1q-4l}, \ref{fig:2q-4l}, and \ref{fig:4q-1l} indicate 
     that an architecture with a certain depth $d$ can be equivalent to an architecture with width 
-    $w = d$.}.
-    
-    
-    an equivalence between layers and qubits: 
-    $\# qubits = \# layers$.
+    $w = d$.}.\\
     However, if we want to come back to the proof of the initial statement that \textit{deep architectures 
     contain shallower ones} by freeing-up the state preparation (which is the red triangle in the 
     diagrams) and measurement (gray semicircle in the diagrams) 
@@ -133,21 +137,23 @@ The future investigations of the \textit{block re-uploading} will be numerous:
         gray semi-circle represents the measurement.}
         \label{fig:1q-4l}
         \end{subfigure}
+        \\[3ex]
         \begin{subfigure}[b]{\textwidth}
-        \vspace{10pt}
         \centering
             \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/2layers2qubits.pdf}
-        \caption{By bending the 1-qubit 4-layers quantum circuit, we obtain a 2-qubits 2-layers circuit.}
+        \caption{By bending the 1-qubit 4-layers quantum circuit, we obtain a 2-qubits 2-layers circuit. If 
+        we use tensor networks' properties show in figure \ref{fig:tensor-prop} we obtain a 2-qubits 
+        2-layers circuit.}
         \label{fig:2q-2l}
         \end{subfigure}
+        \\[3ex]
         \begin{subfigure}[b]{\textwidth}
-        \vspace{10pt}
         \centering
             \includegraphics[scale=0.5]{sections/chapters/Chapter6/Images/Tensor-Networks/4qubits1layer.pdf}
         \caption{By bending the 2-qubit 2-layers quantum circuit, we obtain a 4-qubits 1-layer circuit.}
         \label{fig:4q-1l}
         \end{subfigure}
-        \caption{This figure show how we can transform a 1-qubit 4-layers architecture in 4-qubits 1-layer 
+        \caption{This figure shows how we can transform a 1-qubit 4-layers architecture in 4-qubits 1-layer 
         circuit by exploiting tensor networks' properties.}
     \end{figure}
 
