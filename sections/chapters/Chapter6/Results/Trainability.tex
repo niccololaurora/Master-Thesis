@@ -10,9 +10,10 @@
     \label{fig:uniform-init}
 \end{figure}
 
-We investigated the \textit{trainability} of the \textit{block re-uploading} architecture. 
-The plots in figure \ref{fig:local-uniform} were produced following the procedure introduced by 
-the foundational paper by \cite{McClean_2018}:
+We investigated the \textit{trainability} (figures \ref{fig:uniform-init} and \ref{fig:local-gauss}) 
+of the \textit{block re-uploading} architecture following the procedure introduced by 
+the foundational paper by \cite{McClean_2018}.\\
+Our methodology is the following:
 
 \begin{itemize}
     \item We fixed the size of the images: $8\times8$;
@@ -35,6 +36,8 @@ in every parametric gate.\\
 
 We studied the trainability of the \textit{block re-uploading} architecture with two different decodings:
 local Pauli Z and global Pauli Z.\\ 
+Let's compare these two decodings technique when initializing the trainable parameters uniformly 
+between [-$\pi$, $\pi$] (figure \ref{fig:uniform-init}):
 
 \begin{enumerate}
     \item \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}: Global vs Local.\\
@@ -76,7 +79,7 @@ local Pauli Z and global Pauli Z.\\
 
 
 After examining \textit{uniform initialization} (see figure \ref{fig:local-uniform}), we evaluated 
-\textit{Gaussian initialization} (shown in figure \ref{fig:local-gauss}) for local decoding. However, 
+\textit{gaussian initialization} (shown in figure \ref{fig:local-gauss}) for local decoding. However, 
 we observed no significant differences between the two initialization methods.
 
 

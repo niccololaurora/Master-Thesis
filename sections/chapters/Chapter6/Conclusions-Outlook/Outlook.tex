@@ -1,5 +1,5 @@
 
-The future investigations of the \textit{block re-uploading} will be numerous:
+The future investigations regarding the \textit{block re-uploading} algorithm will be numerous:
 
 \begin{itemize}
     \item \textbf{Architectures}.\\
@@ -25,13 +25,11 @@ The future investigations of the \textit{block re-uploading} will be numerous:
 
     \begin{figure}[h]
         \centering
-        \begin{subfigure}[b]{\textwidth}
-            \centering
+        \begin{subfigure}[b]{0.45\textwidth}
             \includegraphics[scale=0.58]{sections/chapters/Chapter6/Images/Architectures/embedding.pdf}
         \caption*{Baseline model.}
         \end{subfigure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
+        \begin{subfigure}[b]{0.45\textwidth}
             \includegraphics[scale=0.62]{sections/chapters/Chapter6/Images/Architectures/embedding_pooling.pdf}
         \caption*{Baseline model with pooling feature.}
         \end{subfigure}
@@ -53,61 +51,57 @@ The future investigations of the \textit{block re-uploading} will be numerous:
     layers using the trained parameters from the $L-1$ layer architecture.\\
     This a technique of \textit{transfer learning}.
 
-    \item \textbf{Are shallow architectures contained in deep architectures?}.\\
-    We would like to answer to this question for three different quantum re-uploading models:
-    quantum re-uploading models where data and parameters are embedded in the same gates\footnote[1]{The 
-    \textit{block re-uploading} architecture belongs to this first category}, 
-    quantum re-uploading models where data and parameters are separated and the general 
-    case\footnote[2]{In this final case, we aim to demonstrate that deep architectures inherently 
-    include shallow architectures, even when considering architectures with varying numbers of qubits.}.\\
-    Let's discuss these three categories separately.
 
-    Regarding the first category, we can discuss it by considering the \textit{block re-uploading} 
-    architecture.
-    If we consider a two-layers \textit{block re-uploading} architecture, it is clear that by simply 
-    initializing to zero the trainable parameters of the second layer we obtain a one-layer 
-    \textit{block re-uploading} architecture.
-    Therefore, every function that a one-layer \textit{block re-uploading} architecture can express can be 
-    expressed by a two-layers \textit{block re-uploading} architecture.\\
-    This opens up the question: \textit{Is it always true that deeper architectures contain 
-    shallower ones?}\\
-    
-    If we consider a different data re-uploading approach where data and trainable parameters are 
-    embedded in separate gates (second category) (figure \ref{fig:separate-data-var}), 
-    determining whether deeper architectures inherently contain shallower ones becomes more complex.
+    \item \textbf{Are shallow architectures contained in deep architectures?}.\\
+    We would like to answer to this question for two different quantum re-uploading models:
+    quantum re-uploading models where data and parameters are embedded in the same gates\footnote[1]{The 
+    \textit{block re-uploading} architecture belongs to this first category} (which we will call the \textit{mixed}
+    case), quantum re-uploading models where data and parameters are separated (which we will call the 
+    \textit{separate} case).\\
 
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.7]{sections/chapters/Chapter6/Images/Separate-Data-Parameters/separate_data_param.pdf}
-    \caption{This data re-uploading model has the variational component separated from the data embedding one.}
-    \label{fig:separate-data-var}
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{sections/chapters/Chapter6/Images/Separate-Data-Parameters/separate_data_param.pdf}
+            \caption*{Separate quantum re-uploading model.}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=0.9\textwidth]{sections/chapters/Chapter6/Images/Mixed-Arch/mixed.pdf}
+            \caption*{Mixed quantum re-uploading model.}
+        \end{subfigure}
     \end{figure}
 
-    We could prove that a 2-layers architecture contains a 1-layer by adjusting the parameters $\theta_2$, 
+    In the \textit{mixed} case, it is straightforward to demonstrate that deep architectures contain shallow ones. 
+    This can be achieved simply by initializing the parameters of the additional layers to zero.\\
+    However, in the \textit{separate} case, the situation becomes more complex, especially when we do not permit 
+    "trivial data embeddings". One approach to discuss the relation between deep and shallow architectures is 
+    through the use of \textit{truncated Fourier series}. Each quantum model can be represented as a truncated 
+    Fourier series \cite{Schuld_2021}, where the data embedding influences the frequencies, and the variational component adjusts 
+    the coefficients.
+    Therefore, to prove that deep architectures contain shallow architectures in this context, 
+    we could aim to show that the truncated Fourier series representation of a deep architecture can 
+    be reduced to that of a shallow architecture.\\
+    Another possible (but less sophisticated) approach could be the following: if we consider for instance 
+    a 2-layers mixed architecture (figure ) we could prove that it contains a 1-layer architecture by adjusting the 
+    parameters $\theta_2$, 
     such that the quantum state $|\psi \rangle$ output from the first layer becomes an eigenvector 
     of the second layer.\\
     The crucial observation is that the data-embedding gates of the second layer, $U_2(x)$, 
     will first act on $|\psi \rangle$. Therefore, we need to adjust the parameters $\theta_2$ 
     to account for the effect of $U_2(x)$.\\
 
-    Another approach to demonstrating that deep architectures contain shallower ones, when the data 
-    embedding and variational components are separate, involves using \textit{truncated Fourier series}. 
-    According to \cite{Schuld_2021}, quantum models can be represented as truncated Fourier series. 
-    Thus, we could explore whether deep architectures contain shallower ones by showing that the 
-    truncated Fourier series associated with a deep architecture includes more terms than the series 
-    associated with a shallower architecture.\\
-
-    Finally for the general case we could use \textit{tensor networks} to prove that deep 
-    architectures contain shallower ones even if we consider architectures with varying number of 
-    qubits.\\
-    Every quantum circuit can be mapped to a tensor network\footnote[3]{While this is 
+    \item \textbf{What is the relation depth-width of an architecture?}.\\
+    Tensor Networks allow us to transform a quantum circuit with a certain topology 
+    (by topology I mean the number of qubits and number of layers) into a quantum circuit with a 
+    different topology\footnote[1]{Every quantum circuit can be mapped to a tensor network. While this is 
     always true, the reverse is not: the statement \textit{every tensor network is a quantum 
     circuit} is false. This is because quantum circuits impose specific constraints on tensor 
-    networks, such as requiring the gates to be unitary matrices.}. Therefore, we can leverage 
-    certain properties of tensor networks (figure \ref{fig:tensor-prop}) to transform one architecture with a fixed number of 
-    qubits and layers into another architecture with a different number of qubits and layers.
+    networks, such as requiring the gates to be unitary matrices.}. Therefore, we could use them as a tool to prove some kind of equivalence 
+    relationship between the layers of a circuit and the depth of a circuit.
 
-    \begin{figure}
+    \begin{figure}[h]
         \centering
         \includegraphics[scale=0.85]{sections/chapters/Chapter6/Images/Tensor-Networks/TN-properties.pdf}
         \caption{Some useful properties of tensor networks to transform a quantum circuit with a certain 
@@ -154,7 +148,12 @@ The future investigations of the \textit{block re-uploading} will be numerous:
         circuit by exploiting tensor networks' properties.}
     \end{figure}
 
+    Therefore, by using Tensor Networks we could prove a relation width-depth relation
+    for quantum circuits. 
     
-
-
+    \item \textbf{Are narrow architectures contained in wide architectures?}.\\
+    We still need to consider how best to approach this question. However, after exploring the 
+    relationships between depth and width as well as shallow and deep architectures, it seems logical to 
+    now examine the relationship between narrow and wide architectures.
+    
 \end{itemize}

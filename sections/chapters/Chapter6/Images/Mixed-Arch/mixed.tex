@@ -1,0 +1,19 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{quantikz}
+
+\begin{document}
+
+\begin{quantikz}
+    \lstick{$\ket{0}$}&
+    \gate[4,style={fill=orange!30},disable auto height]{\textsc{$U(x, \theta_1)$}}\gategroup[4,steps=1,style={inner
+    sep=6pt}]{L(1)} & & & 
+    \gate[4,style={fill=orange!30},disable auto height]{\textsc{$U(x, \theta_2)$}}\gategroup[4,steps=1,style={inner
+    sep=6pt}]{L(2)} & &\\
+    \lstick{$\ket{0}$} & & & & & & \\
+    \lstick{$\ket{0}$} & & & & & & \\
+    \lstick{$\ket{0}$} & & & & & &
+\end{quantikz}
+
+
+\end{document}

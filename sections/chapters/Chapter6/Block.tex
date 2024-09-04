@@ -275,8 +275,8 @@ We conducted several numerical test on the \textit{block re-uploading} architect
     \item Dataset.\\
     We used both the MNIST digit and MNIST fashion datasets, which are both grayscale $28\times28$ pixels images.
     \item Image size.\\
-    We used different down-scaling of the MNIST dataset:
-    $4\times4$, $8\times8$, $12\times12$, $14\times14$, $16\times16$, $18\times18$.
+    We used different down-scaling of the MNIST dataset: $8\times8$, $12\times12$, $14\times14$, 
+    $16\times16$, $18\times18$.
     \item Decoding observable.\\
     Every quantum machine learning algorithm has a \textit{decoding} component at the end of it, which consists in 
     measuring an observable to extract information from the PQC.
@@ -330,11 +330,6 @@ I will group all the architectures combination in three main categories: \textit
 (every other architecture). 
 
 
-\subsection{Local 4x4}
-
-
-\subsection{Global 4x4}
-
 
 \subsection{Local 8x8} \label{sssec:num1}
 \input{sections/chapters/Chapter6/Results/L8}
@@ -342,20 +337,17 @@ I will group all the architectures combination in three main categories: \textit
 \subsection{Global 8x8}
 \input{sections/chapters/Chapter6/Results/G8}
 
-\subsection{Local 12x12}
+\subsection{Local 12x12} \label{sssec:local-12}
 \input{sections/chapters/Chapter6/Results/L12}
 
 \subsection{Global 12x12}
 \input{sections/chapters/Chapter6/Results/G12}
 
-\subsection{Local 14x14}
+\subsection{Local 14x14, 16x16, 18x18}
 \input{sections/chapters/Chapter6/Results/L14}
 
 \subsection{Global 14x14}
 \input{sections/chapters/Chapter6/Results/G14}
-
-\subsection{Local 16x16 and 18x18}
-\input{sections/chapters/Chapter6/Results/L16-18}
 
 \subsection{Comparing few-qubits architectures}
 \input{sections/chapters/Chapter6/Results/Small-Arch.tex}
@@ -367,6 +359,7 @@ I will group all the architectures combination in three main categories: \textit
 \input{sections/chapters/Chapter6/Results/Trainability.tex}
 
 \subsection{Conclusions}
+\input{sections/chapters/Chapter6/Conclusions-Outlook/conclusion.tex}
 
 \section{Outlook}
 \input{sections/chapters/Chapter6/Conclusions-Outlook/Outlook.tex}

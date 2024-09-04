@@ -7,12 +7,16 @@
 \end{figure}
 
 By enlarging the images, we observe a consistent trend across all categories 
-(deep-narrow, shallow-wide, proportionate): the accuracy systematically decreases.
-Moreover, overfitting appears even for 2-layers architectures (for instance we can see overfitting for the 
-3 qubits and 2 layers architectures).
-We can observe that the behavior seen with $8 \times 8$ images is similarly observed with 
-$12 \times 12$ images, but \textit{shifted to the left by one or two layers}. This shift 
-occurs because the increased number of parameters in each layer makes the model more prone to overfitting.
+(deep-narrow, shallow-wide, proportionate): the validation accuracy \textit{systematically decreases}, 
+wherease the training accuracy remains \textit{stable}.
+Moreover, overfitting occurs even in 2-layers architectures (evident in the 3-qubit, 2-layer models), 
+which is surprising since overfitting at such low depths was not observed with $8\times8$ images.
+We can observe that the behaviour of the validation accuracy seen with $8\times8$ images is similarly 
+observed with $12\times12$ images, but \textit{shifted to the left by one or two layers}. 
+This shift occurs because the increased number of parameters in each layer makes the model more prone to 
+overfitting.\\
+Furthermore, when comparing the global and local cases for $12\times12$ images, the global 
+case clearly performs worse in both training and validation accuracy.\\
 By looking at figure \ref{fig:heatmap-12x12-G}, we can distinguish 
 three different behaviours:
 

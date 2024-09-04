@@ -1,0 +1,39 @@
+
+
+Let's sum up the results found so far:
+
+\begin{itemize}
+    \item \textbf{Trainings: Deep-Narrow vs Shallow-Wide vs Proportionate (local).}\\
+    We introduced three categories of architectures: Deep-Narrow, Shallow-Wide, and Proportionate. \\
+    From our observations, three key patterns emerge: as Deep-Narrow architectures increase in depth, 
+    overfitting becomes more pronounced; as Shallow-Wide architectures expand in width, both training and 
+    validation accuracy decline, accompanied by the onset of numerical instabilities; and Proportionate 
+    architectures, where information is evenly distributed across depth and width, tend to perform better overall.
+
+    \item \textbf{Trainings: Deep-Narrow vs Shallow-Wide vs Proportionate (global).}\\
+    Shallow-Wide architectures do not exhibit numerical instabilities and as the architectures
+    becomes wider both training and validation accuracy remain stable (in contrast to the drop observed in 
+    the local case).
+    Shallow architectures (which can be narrow or wide) outperform (narrow or wide) deep architectures.
+
+    \item \textbf{Trainings: Global vs Local.}\\
+    Global decoding outperforms local decoding in shallow-wide architectures, as it avoids numerical instabilities. 
+    However, for narrow-deep and proportionate architectures, local decoding proves to be more effective 
+    than global decoding.
+
+    \item \textbf{Trainings: Increasing size.}\\
+    As the image size increases, we observe two distinct behaviors: training accuracy remains stable, 
+    while validation accuracy decreases, indicating signs of overfitting. We describe this decrease 
+    in validation accuracy as a \textit{shift to the left by one or two layers}. In other words, 
+    as we increase the image size, the validation accuracy heatmap for larger images mirrors that of smaller 
+    images, but shifted left by 1-2 layers.
+
+    \item \textbf{Trainability: Global vs Local.} (uniform initialization)\\
+    It is noteworthy that both decoding strategies exhibit the same behavior in 
+    \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} and \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}.
+    The only distinction is that in \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers}, the global decoding 
+    reaches the variance plateau much faster than the local decoding. Consequently, architectures with 
+    local decoding have a larger layer budget at their disposal compared to those with global decoding.
+
+
+\end{itemize}

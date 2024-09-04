@@ -5,5 +5,34 @@
     \label{fig:heatmap-14x14-L}
 \end{figure}
 
-By looking at figure \ref{fig:heatmap-14x14-L}, we can distinguish 
-three different behaviours:
+By enlarging the images to $14\times14$, we can again notice a \textit{shift to the left by 
+one or two layers} of the validation accuracy with respect to the $12\times12$ local case (figure 
+\ref{fig:heatmap-14x14-L}). Once again, this shift 
+occurs because the increased number of parameters in each layer makes the model more prone to overfitting.
+The training accuracy for the $14\times14$ is essentially the same for both the $8\times8$ and 
+$12\times12$ cases.
+
+The remarks regarding the \textit{Deep-Narrow} and \textit{Proportionate} architectures are consistent 
+with those made in Section \ref{sssec:local-12} for the $12\times12$ case.
+We cannot discuss \textit{Shallow-Wide} architectures because we did not train architectures wider
+than 6 qubits, hence we are unsure that we would see the same behaviour observed for $8\times8$ 
+images (as the architectures would become more wide the training accuracy would drop drastically).
+However, since no significant differences were observed for the \textit{Deep-Narrow} 
+and \textit{Proportionate} architectures, it can be assumed that we should not expect any variation 
+for the \textit{Shallow-Wide} architectures compared to the previous cases.\\
+
+Figure \ref{fig:heatmap-16x16-L} shows the training and validation accuracy for the $16\times16$ and 
+$18\times18$ down-scaled MNIST digits dataset using a local Pauli Z.
+Once again we can notice that overfitting worsens as the images' size increase (shifting to the left behaviour), 
+whereas the training accuracy remains stable.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{sections/chapters/Chapter6/Images/Heatmaps/Local-Heatmaps/Heatmap-Digits-16-18-L.pdf}
+    \caption{This heatmap shows the training and validation accuracy for architectures for the $16\times16$ and 
+    $18\times18$ down-scaled MNIST digits dataset using a local Pauli Z.
+     Some training sessions run for 150 epochs (e.g., $16\times16$: 2 qubits, $18\times18$: 
+     1 qubit, 3 qubits), while others are extended to 200 epochs.}
+    \label{fig:heatmap-16x16-L}
+\end{figure}
+
