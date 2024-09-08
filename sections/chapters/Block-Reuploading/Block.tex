@@ -71,7 +71,7 @@ identical blocks.} (figure \ref{fig:block}).\\
     \label{fig:block}
 \end{figure}
 
-Apart from answering to the questions \ref{question:first}, \ref{question:second}, our main goal was to 
+Apart from answering to the questions \ref{question:second}, our main goal was to 
 investigate the \textit{Depth vs Width trade-off}.
 The \textit{Depth vs Width trade-off} can be more explicitly referred to as the
 \textit{Sequential vs Parallel uploading trade-off}.
@@ -136,9 +136,8 @@ will involve a balanced mix of sequential and parallel encoding.\\
 \end{figure}
 
 
-
 The \textit{block re-uploading} algorithm is a layered algorithm and each layer has three components: 
-an embedding circuit, an entanglement structure and a pooling circuit.
+an embedding circuit, an entanglement structure and a pooling circuit (figure \ref{fig:components}).
 
 \begin{figure}[h]
     \centering
@@ -146,11 +145,12 @@ an embedding circuit, an entanglement structure and a pooling circuit.
     \caption{A four qubits and two layers \textit{block re-uploading} architecture. Each layer has three 
     components: an embedding circuit, an entanglement structure and a pooling circuit.
     Layers are separated by another entanglement structure.}
+    \label{fig:components}
 \end{figure}
 
 \paragraph{Embedding}
 The embedding component is responsible to encode each block of an image onto a different qubit of 
-the quantum circuit (figure \label{fig:block}).\\
+the quantum circuit (figure \ref{fig:block-feature}).\\
 For instance, an $8\times8$ image can be divided in 4 identical $4\times4$ blocks. 
 Therefore, each $4\times4$ block is a 16 dimensional vector which requires 
 $\left\lceil \frac{d}{3} \right\rceil = \left\lceil \frac{16}{3} \right\rceil = 6$ unitary matrices 
@@ -184,12 +184,14 @@ The angles will be defined as a linear combination of pixels and weights, for ex
         &&& \gate{U^4_1} & \gate{U^4_2} & \gate{U^4_3} & \gate{U^4_4} & \gate{U^4_5} & \gate{U^4_6} &&& \\
     \end{quantikz}
     \caption{Embedding circuit for an $8\times8$ image divided in 4 identical $4\times4$ blocks.}
+    \label{fig:block-feature}
 \end{figure}
 
 
 \paragraph{Entanglement structure}
 Since each block is correlated with its neighboring blocks, we decided to use an entanglement 
-structure in which entangling gates create connections between adjacent blocks.
+structure in which entangling gates create connections between adjacent blocks (figure 
+\ref{fig:entanglement-feature}).
 We chose CZ, as the only entangling gate.
 Therefore, the entanglement structure aims to ensure that each qubit shares information only with 
 qubits that contain related information.
@@ -198,13 +200,14 @@ qubits that contain related information.
     \centering
     \begin{quantikz}
         &&& \ctrl{1} & \ctrl{2}   &       &     &&&&\\
-        &&& \targ{}  &    &       &   \ctrl{2}    &     &&&\\
-        &&&    &        \targ{}    &       &   & \ctrl{1}   &&&\\
-        &&&    &     &    &       \targ{}   &   \targ{}  &&&\\
+        &&& \control{}  &    &       &   \ctrl{2}    &     &&&\\
+        &&&    &        \control{}    &       &   & \ctrl{1}   &&&\\
+        &&&    &     &    &       \control{}   &   \control{}  &&&\\
     \end{quantikz}
     \caption{Entanglement structure for an image divided in 4 blocks. The first qubit will 
     communicate with the second one and the third one, as the first block is adjacent to the second and the third one.
     Then, the second block will be connected to the fourth one and the third to fourth one.}
+    \label{fig:entanglement-feature}
 \end{figure}
 
 \paragraph{Pooling}
@@ -212,7 +215,7 @@ In classical machine learning the pooling layers are used to make the network le
 and distortions in the input data.\\
 Therefore, we decided to mimic the pooling component of classical convolutional neural networks, by 
 adding an X rotation gate per qubit, whose angle is defined as the linear combination of the max (or average) value 
-of a block and weights.
+of a block and weights (figure \ref{fig:pooling-feature}).
 Therefore, if we consider again an $8\times8$ image divided in 4 identical $4\times4$ blocks: 
 
 \begin{align}
@@ -257,6 +260,7 @@ the angles of the four X rotation gates will be:
         &&& \gate{R^4_x} &&& \\
     \end{quantikz}
     \caption{Pooling circuit for a 4 qubit architecture.}
+    \label{fig:pooling-feature}
 \end{figure}
 
 
@@ -328,7 +332,6 @@ The following sections will discuss the \textit{generalization} capabilities and
 I will group all the architectures combination in three main categories: \textit{narrow-deep} 
 (few qubits and numerous layers), \textit{wide-shallow} (many qubits and few layers), \textit{proportionate}
 (every other architecture). 
-
 
 
 \subsection{Local 8x8} \label{sssec:num1}

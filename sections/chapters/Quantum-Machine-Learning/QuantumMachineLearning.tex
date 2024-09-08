@@ -6,24 +6,6 @@ For example, QML investigates whether quantum computers can speed up the time it
 to train or evaluate a machine learning model. On the other hand, the QML community
 leverages techniques from machine learning to devise new quantum error-correcting codes~\cite{Roffe_2019}, 
 estimate the properties of quantum systems, or develop new quantum algorithms.\\
-
-
-
-The state of the art of Quantum Machine Learning has as main highlight the development
-of algorithms that have been proven to have a quantum advantage in computational
-complexity over classical algorithms~\cite{Sweke_2021, Liu_2021, Jerbi_2021}.
-However, these algorithms require a fault-tolerant quantum computer~\cite{shor}, which is able to
-continuously correct errors that arise during computation, ensuring the stability and
-reliability of the quantum processes over extended periods.
-As we are still many years away from fault tolerant quantum computation, the QML
-community has developed a great interest toward possible applications of current and
-near-term quantum devices (NISQ devices)~\cite{Preskill_2018}, which are not capable of continuous
-quantum error correction.
-In particular, the QML research community has developed a new class of quantum
-procedures called variational quantum algorithms (VQA)~\cite{Cerezo_2021} to take advantage of current
-and near-term quantum hardware.\\
-However no quantum advantage has been proven for this algorithms, yet.\\
-
 As previously stated, QML is the intersection of Machine Learning and Quantum Computing and this intersection can be 
 factorised in four main areas:
 
@@ -45,16 +27,28 @@ factorised in four main areas:
 In my Master's thesis I have focused only on the \textit{Quantum for Classical} area.\\
 
 
-In the next paragraphs I will briefly discuss Variational Quantum Algorithms, as they have been the focus
-of my Master's thesis.
+\section{Linear quantum models: explicit models, implicit models, data re-uploading models}
+
+In the following sections we will compare and discuss three different quantum models: \textit{explicit quantum models}; 
+\textit{quantum kernel models} (implicit quantum models); \textit{data re-uploading circuits} 
+(figure \ref{fig:quantum-models}).\\
+In explicit models the encoded data point is measured according to a variational observable that specifies its label.
+In implicit quantum models, the weighted inner products of encoded datapoints are used to assign labels
+Since data re-uploading models have an alternation of data-encoding and variational unitaries, they 
+can be seen as a generalization of explicit models.
 
 
-\section{Linear quantum models: explicit and implicit models}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{sections/chapters/Quantum-Machine-Learning/Images/quantum-models.pdf}
+    \caption{This figure is taken directly from \cite{Jerbi_2023}. This figures shows three different quantum models:
+    (a) an explicit quantum model; (b) a quantum kernel model; (c) a data re-uploading circuit.}
+    \label{fig:quantum-models}
+\end{figure}
 
-
-\subsection{Explicit models}
-
-A quantum machine learning model deals with data, thus the first step is to efficiently upload the data of the 
+First of all, let's discuss how explicit and implicit models can both be described as linear quantum models and then
+we will highlight their differences.\\
+A quantum machine learning model deals with data, thus the first step is to upload the data of the 
 problem into the model.
 Data can be either \textit{classical} $\{\bm{x}_i\}_{i=1}^m \in \chi \subseteq \mathbb{R}$ 
 or \textit{quantum}, such as a set of states $\{ |\psi_i\rangle \}_{i=1}^m \in \mathcal{H} = C^{2n}$, 
@@ -69,10 +63,11 @@ Let's discuss separately how to upload classical and quantum data on a quantum c
 
     \begin{align}
         \phi : \chi &\rightarrow \mathcal{F} = \mathcal{H}\\
-        \bm{x} &\mapsto |\phi(\bm{x})\rangle = U(\bm{x}) |0\rangle^{\otimes n}\\
+        \bm{x} &\mapsto |\phi(\bm{x})\rangle = U_{\phi}(\bm{x}) |0\rangle^{\otimes n}\\
     \end{align}
 
-    where $\mathcal{F}$ is the feature space, which in this case is the $\mathcal{H}$.
+    where $\mathcal{F}$ is the feature space, which in this case is the Hilbert space $\mathcal{H}$ of 
+    $2^n \times 2^n$ hermitian operators.
     We have numerous different feature embedding maps $U(\bm{x})$: \textit{angle encoding}, \textit{amplitude encoding},
     \textit{Qsample encoding}.\\
     For example the angle encoding consists in a different Pauli rotation for each component of the datapoint
@@ -116,16 +111,166 @@ Let's discuss separately how to upload classical and quantum data on a quantum c
     \end{equation}
 \end{enumerate}
 
-Suppose we are given a classical dataset, thus we have to map these datapoints to an appropriate Hilbert space
+After we have embedded our data on a quantum computer, a linear function in the quantum feature space 
+$\mathcal{F}$ is defined by:
+
+\begin{equation}
+    f(\bm{x}) = Tr[\rho(\bm{x})O]
+\end{equation}
+
+for some hermitian observable $O \in \mathcal{F}$.\\
+Explicit and implicit models differ in the way they define the family of observable 
+$\{ O \}$ they each consider.
+
+\subsection{Explicit models}
+
+An explicit quantum model using the feature encoding $U_{\phi}(\bm{x})$ is defined by a variational 
+family of unitaries $V(\bm{\theta})$ and a fixed observable O:
+
+\begin{equation}
+    f_{\bm{\theta}}(\bm{x}) = Tr[\rho(\bm{x})O_{\bm{\theta}}]
+\end{equation}
+
+for $O_{\bm{\theta}} = V(\bm{\theta})^{\dagger} O V(\bm{\theta})$
 
 \subsection{Implicit models}
+
+Implicit models are defined by the datapoints $\{ \bm{x}^{(1)}, \bm{x}^{(2)}, ..., \bm{x}^{(M)} \}$ of a given training set
+$\mathcal{D}$ and in particular they are a linear combination of the innerproducts of encoded datapoints:
+
+\begin{equation}
+    f_{\bm{\alpha}, \mathcal{D}}(\bm{x}) = \sum_{i=1}^M \alpha_m k(\bm{x}, \bm{x}^{(m)}) = Tr[\rho(\bm{x}), \rho(\bm{x}^{(m)})]
+\end{equation}
+
+By the linearity of the trace we can express any implicit model as a linear model in $\mathcal{F}$, defined by the 
+observable:
+
+\begin{equation}
+    O_{\bm{\alpha}, \mathcal{D}} = \sum_{i=1}^M \alpha_m \rho(\bm{x}^{(m)})
+\end{equation}
+
+
+\subsection{Data re-uploading models}
+
+\cite{P_rez_Salinas_2020} introduced the \textit{re-uploading} encoding technique,
+drawing inspiration from classical neural networks.
+The key idea that inspired Salinas et al is that a feed-forward neural network processes data several times
+(in each layer), one for each neuron in the considered hidden layer. 
+Therefore, strictly speaking, data is \textit{re-uploaded} multiple times onto the neural network.
+This key concept is illustrated in figure~\ref{Fig:schemes}.
+
+
+
+% \subcaption[⟨list entry⟩]{⟨heading⟩}[⟨width⟩][⟨inner-pos⟩]{⟨contents⟩}
+% list entry: nome interno che verrà usato se generata la lista delle figure.
+% heading: subcaption
+% width: larghezza del parbox creato
+% inner-pos: posizione che avrà l'immagine nel parbox
+% contents: immagine
+\begin{figure}[bp]
+    \centering
+    \subcaptionbox[A]{Neural Network}[.4\textwidth][c]{
+        \includegraphics[width=0.25\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Neural_network.png}
+        }
+    \subcaptionbox[B]{Quantum circuit with re-uploading}[.4\textwidth][c]{
+        \includegraphics[width=0.5\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Quantum_scheme.png}
+        }
+    \caption{
+        Schemes of a one layer neural network and a single-qubit quantum circuit with data re-uploading.
+        In the neural network the data is uploaded in each neuron of the hidden layer, hence data is 
+        \textit{re-uploaded} multiple times.
+        In a similar way the data is introduced classically numerous times in the circuit.
+        The key difference between the two architectures is that each neuron of a neural network processes the 
+        data in parallel and simultaneously, whereas the single-qubit quantum circuit with data re-uploading 
+        processes the data sequentially.}
+\label{Fig:schemes}
+\end{figure}
+
+In a single-qubit quantum circuit with data re-uploading, data is introduced as a rotation of the qubit.
+Since every unitary can be expressed as the product of three rotation gates, we can define the angles as a linear
+combination of weights and coordinates of the data\footnote[1]{Just like in a neuron of neural network.}.
+
+\begin{equation}
+    U(\bm{\phi}) = R_Z(\phi_1) R_Y(\phi_2) R_Z(\phi_3)
+\label{}
+\end{equation}
+
+For instance, if data is 3-dimensional $\bm{x} = (x_1, x_2, x_3)$:
+
+\begin{align}
+    \phi_1 &= x_1 \cdot w_1 + b_1 \\
+    \phi_2 &= x_2 \cdot w_2 + b_2 \\
+    \phi_3 &= x_3 \cdot w_3 + b_3 \\
+\end{align}
+
+If data has a dimension greater than 3, we will need more than one unitary to encode a datapoint.
+In general, if data has dimension \textit{d} we will need \(\left\lfloor \frac{d}{3} \right\rceil\) unitaries.
+Each repetition of this \(\left\lfloor \frac{d}{3} \right\rceil\) unitaries to encode the data constitutes 
+one layer of the architectures.
+
+\begin{figure}
+    \centering
+    \begin{quantikz}
+        \lstick{$\ket{0}$} &&& \gate{U(\phi_1, x)} 
+        \gategroup[1,steps=1, style={dashed,rounded corners,fill=blue!20,inner xsep=6pt}, background, label style={label
+        position=below, yshift=-0.4cm}]{L(1)} 
+        &&& \ \ldots \ &&& \gate{U(\phi_N, x)} 
+        \gategroup[1,steps=1, style={dashed,rounded corners,fill=blue!20,inner xsep=6pt}, background, label style={label
+        position=below, yshift=-0.4cm}]{L(N)}
+        &&& \meter{}
+    \end{quantikz}
+    \caption{The quantum circuit of a data re-uploading model is divided into layers L(i), which constitutes 
+    the building blocks of this architecture.}
+\end{figure}
+
+Figure
+
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer1-A.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer1-B.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer3-A.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer3-B.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer7-A.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer7-B.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer10-A.png}
+    \end{subfigure}
+    \begin{subfigure}[b][0.45\textwidth]
+        \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer10-B.png}
+    \end{subfigure}
+\end{figure}
 
 
 \section{Variational Quantum Algorithms}
 
-Variational Quantum Algorithms~\cite{Cerezo_2021} are the leading proposal to exploit current quantum computing platforms, 
-based on the hope that it is possible to achieve a meaningful quantum advantage already in the non error-corrected 
-regime, before standard quantum algorithms, like Shor’s factoring algorithm~\cite{Shor_1997}, can be realised at scale.\\ 
+The state of the art of Quantum Machine Learning has as main highlight the development
+of algorithms that have been proven to have a quantum advantage in computational
+complexity over classical algorithms~\cite{Sweke_2021, Liu_2021, Jerbi_2021}.
+However, these algorithms require a fault-tolerant quantum computer~\cite{shor}, which is able to
+continuously correct errors that arise during computation, ensuring the stability and
+reliability of the quantum processes over extended periods.
+As we are still many years away from fault tolerant quantum computation, the QML
+community has developed a great interest toward possible applications of current and
+near-term quantum devices (NISQ devices)~\cite{Preskill_2018}, which are not capable of continuous
+quantum error correction.
+In particular, the QML research community has developed a new class of quantum
+procedures called variational quantum algorithms (VQA)~\cite{Cerezo_2021} to take advantage of current
+and near-term quantum hardware.\\
+However no quantum advantage has been proven for this algorithms, yet.\\
 
 A VQA is a \textit{hybrid quantum-classical} algorithm with different components:
 
@@ -270,8 +415,8 @@ exponentially large plateau in the landscape of the parameters.\\
 
 \begin{figure}
     \centering
-    \includegraphics[width=.45\textwidth]{sections/chapters/Chapter4/Images/ProjectionGradientVar.pdf}
-    \includegraphics[width=.45\textwidth]{sections/chapters/Chapter4/Images/ProjectionGradientVarLayers.pdf}
+    \includegraphics[width=.45\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/ProjectionGradientVar.pdf}
+    \includegraphics[width=.45\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/ProjectionGradientVarLayers.pdf}
     \caption{These are the original images from the paper by \cite{McClean_2018}. 
     The image on the left shows the variance of the gradient of a two-local Pauli term plotted as a function of 
     the number of qubits: an exponential decay is observed as a function of the number 
