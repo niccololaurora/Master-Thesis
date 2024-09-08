@@ -157,7 +157,7 @@ drawing inspiration from classical neural networks.
 The key idea that inspired Salinas et al is that a feed-forward neural network processes data several times
 (in each layer), one for each neuron in the considered hidden layer. 
 Therefore, strictly speaking, data is \textit{re-uploaded} multiple times onto the neural network.
-This key concept is illustrated in figure~\ref{Fig:schemes}.
+This key concept is illustrated in figure \ref{fig:data-reuploading-diagram}.
 
 
 
@@ -167,14 +167,14 @@ This key concept is illustrated in figure~\ref{Fig:schemes}.
 % width: larghezza del parbox creato
 % inner-pos: posizione che avrà l'immagine nel parbox
 % contents: immagine
-\begin{figure}[bp]
+\begin{figure}[h]
     \centering
-    \subcaptionbox[A]{Neural Network}[.4\textwidth][c]{
+    \begin{subfigure}[b][.45\textwidth]
         \includegraphics[width=0.25\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Neural_network.png}
-        }
-    \subcaptionbox[B]{Quantum circuit with re-uploading}[.4\textwidth][c]{
+    \end{subfigure}
+    \begin{subfigure}[b][.45\textwidth]
         \includegraphics[width=0.5\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Quantum_scheme.png}
-        }
+    \end{subfigure}
     \caption{
         Schemes of a one layer neural network and a single-qubit quantum circuit with data re-uploading.
         In the neural network the data is uploaded in each neuron of the hidden layer, hence data is 
@@ -183,7 +183,7 @@ This key concept is illustrated in figure~\ref{Fig:schemes}.
         The key difference between the two architectures is that each neuron of a neural network processes the 
         data in parallel and simultaneously, whereas the single-qubit quantum circuit with data re-uploading 
         processes the data sequentially.}
-\label{Fig:schemes}
+    \label{fig:data-reuploading-diagram}
 \end{figure}
 
 In a single-qubit quantum circuit with data re-uploading, data is introduced as a rotation of the qubit.
