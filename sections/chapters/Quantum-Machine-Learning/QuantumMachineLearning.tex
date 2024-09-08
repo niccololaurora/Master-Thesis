@@ -26,6 +26,228 @@ factorised in four main areas:
 
 In my Master's thesis I have focused only on the \textit{Quantum for Classical} area.\\
 
+\section{Variational Quantum Algorithms}
+
+The state of the art of Quantum Machine Learning has as main highlight the development
+of algorithms that have been proven to have a quantum advantage in computational
+complexity over classical algorithms~\cite{Sweke_2021, Liu_2021, Jerbi_2021}.
+However, these algorithms require a fault-tolerant quantum computer~\cite{shor}, which is able to
+continuously correct errors that arise during computation, ensuring the stability and
+reliability of the quantum processes over extended periods.
+As we are still many years away from fault tolerant quantum computation, the QML
+community has developed a great interest toward possible applications of current and
+near-term quantum devices (NISQ devices)~\cite{Preskill_2018}, which are not capable of continuous
+quantum error correction.
+In particular, the QML research community has developed a new class of quantum
+procedures called variational quantum algorithms (VQA)~\cite{Cerezo_2021} to take advantage of current
+and near-term quantum hardware.\\
+However no quantum advantage has been proven for this algorithms, yet.\\
+
+A VQA is a \textit{hybrid quantum-classical} algorithm with different components (figure \ref{fig:vqa-scheme}):
+
+\begin{enumerate}
+    \item \textbf{Encoding block}.\\
+    The first component is the encoding block, which is responsible to encode the data of the problem in the 
+    algorithm.
+    \item \textbf{Parametrized Quantum Circuit (PQC)}.\\
+    The second component is a parametrized quantum circuit U($\theta$), which is a circuit made of numerous gates. The parameters are usually 
+    the angles of the circuit and they can be tuned to enhance the algorithm's performance for completing a specific task. 
+    \item \textbf{Decoding Block}.\\
+    The third component is the decoding block, which consists in measuring the PQC.
+    \item \textbf{Optimization}.\\
+    The valuable information extracted when measuring the PQC is used to evaluate a objective function.
+    This objective function is then optimized, and this procedure suggests improved candidates 
+    for the parameters $\theta$, starting from random or pre-trained initial values.
+\end{enumerate}
+
+The crucial point to emphasize of a VQA is that the PQC can be executed on current quantum
+devices, while the computational demanding task of optimizing the objective function is
+performed by a classical computer, which is far more reliable then current NISQ devices.
+Therefore, the trademark of VQAs is that they use a quantum computer to estimate the cost function (or its gradient) 
+while leveraging the power of classical optimizers to train the parameters: this is why they are called
+\textit{hybrid quantum-classical} algorithms.\\
+Many different VQAs have been designed to tackle standard machine learning tasks, such
+as classification, regression or optimization.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{sections/chapters/Quantum-Machine-Learning/Images/vqa.png}
+    \caption{This figure shows a schematic representation of a VQA.}
+    \label{fig:vqa-scheme}
+\end{figure}
+
+\subsection{Parametrized Quantum Circuit}
+
+Parameterized Quantum Circuits are the core of every VQA.\\
+Consequently, it is crucial to design circuits that are not only \textit{easy to train} but also capable of 
+\textit{generalizing} from the training data and sufficiently \textit{expressive} to identify an optimal solution 
+for the given task.\\
+
+A PQC, also known as \textit{quantum neural network}, can be expressed as a series of L parametrized unitaries:
+
+\begin{equation}
+    U(\theta) = \prod_{i=1}^L U_i(\theta_i)
+\label{Eq:definition-PQC}
+\end{equation}
+
+where $\theta = (\theta_1, ..., \theta_L)$ is a set of tunable parameters.
+This parameters are updated by optimizing a loss function:
+
+
+\begin{align}
+    \ell_{\bm{\theta}}(\rho, O) = \text{Tr}\left[\rho(\bm{\theta})O\right]
+    \qquad
+    \rightarrow
+    \qquad
+    \argmin_{\bm{\theta}} l_{\bm{\theta}}(\rho, O)
+    \label{eq:loss-function-vqa}
+\end{align}
+
+
+
+More general loss functions exist, but this case is already relevant.\\
+The main properties of a PQC are \textit{expressivity}~\cite{hubregtsen2020, Sim_2019, Bravo_Prieto_2020, 
+Wu_2021, Herman_2023, Haug_2021, Holmes_2022}, \textit{generalization}~\cite{Caro_2020, Abbas_2021, Banchi_2021,
+Bu_2023, bu2021, Bu_2022, Du_2022, Peters_2023, Caro_2023} and \textit{trainability}~\cite{McClean_2018, 
+Cerezo_2021, Arrasmith_2021, Kim_2021, Wang_2021, Pesah_2021, marrero2021, Larocca_2023}.\\
+
+In the next paragraph I will discuss \textit{trainability} and \textit{barren plateaus} following the 
+review \cite{larocca2024reviewbarrenplateausvariational}.
+I will not discuss \textit{generalization} and \textit{expressivity}.
+
+\paragraph{Trainability}
+
+As in classical machine learning, variational quantum algorithms can suffer from the problem of vanishing 
+gradient, or in QML terms \textit{Barren Plateaus} (BP).
+A common definition of BP for VQAs is the following:
+
+\begin{defn*}[Barren Plateaus]
+    A VQA exhibits a BP if its loss function, or its gradients, concentrate exponentially about their mean 
+    in the number of qubits n
+    \footnote[1]{The two definitions of Barren Plateaus — one involving gradients and the other 
+    involving the loss function — are not equivalent. The definition based on the loss function is 
+    unambiguous, whereas the definition in terms of partial derivatives can be less clear. The ambiguity 
+    arises because some partial derivatives might be exponentially concentrated while others are not. In such 
+    cases, the loss function would not exhibit exponential concentration, indicating that the two definitions 
+    are not equivalent. They become equivalent only when \textit{all} the gradients are exponentially concentrated 
+    \cite{Arrasmith_2022}.}.
+\end{defn*}
+
+This means that, as the number of qubits n increases, the gradients of the loss function (or the loss function itself) 
+tend to concentrate around an average value with increasing probability.    
+The average value around which the gradient must concentrate in order to exhibit BP must be very 
+small\footnote[1]{\cite{McClean_2018} demonstrated that, under broad conditions, random parameterized quantum 
+circuits have an average gradient value of zero.}.
+In fact, if the gradient were concentrated around a non-infinitesimal value, it would mean that the 
+algorithm is still learning.
+Intuitively, this means that the optimization landscape is mostly flat and featureless and
+that slightly changing the model’s parameters $\theta$ results in only an exponentially small change in the loss
+function value or its gradient.\\
+
+The probabilistic nature of Quantum Mechanics forces us to measured a finite amount of times N the PQC to determine
+the average value of an observable.
+The statistical uncertainty related to the average value is inversely proportional to $\sqrt{N}$.
+Therefore, if the loss function has an exponential concentration (which means that the changes of the loss function 
+from one epoch to the following are exponentially suppressed), we need an exponential amount of shots to resolve this
+changes, rendering the algorithm inefficient and non-scalable.
+ 
+
+Two main types of BPs exist:
+
+
+\begin{enumerate}
+    \item \textbf{Probabilistic concentration and narrow gorges}.\\
+    The most common type of BP is known as \textit{probabilistic concentration}.
+
+    \begin{equation}
+        Var_{\theta} [ \ell_{\theta}(\rho, O) ] \quad \text{or} \quad Var_{\theta} [ \partial_{\mu} \ell_{\theta}(\rho, O) ] \in \mathcal{O}(\frac{1}{b^n})
+    \end{equation}
+
+    where $b > 1$. Chebyshev's inequality implies for any $\delta > 0$:
+
+    \begin{align}
+        Pr(|\ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\ell_{\theta}(\rho, O))| \ge \delta) \in \mathcal{O}(\frac{1}{b^n})\\
+        Pr(|\partial_{\mu} \ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\partial_{\mu} \ell_{\theta}(\rho, O))| \ge \delta) \in \mathcal{O}(\frac{1}{b^n})\\
+    \end{align}
+
+    which means that the probability that the loss deviates from its mean is exponentially small.\\
+    Probabilistic BP imply a mostly flat landscape with some \textit{narrow gorge}.
+    
+    \item \textbf{Deterministic concentration}.\\
+    A deterministic BP arises when $\forall \theta$:
+    \begin{align}
+        |\ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\ell_{\theta}(\rho, O))| \in \mathcal{O}(\frac{1}{b^n})\\
+        |\partial_{\mu} \ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\partial_{\mu} \ell_{\theta}(\rho, O))| \in \mathcal{O}(\frac{1}{b^n})\\
+    \end{align}
+
+    where $b > 1$.
+    Deterministic BP do not even admit narrow gorges.
+\end{enumerate}
+
+
+A possible method to determine if the loss or the gradients are concentrating was introduced by \cite{McClean_2018}.
+They randomly sampled parameters and computed how the variance scales with the number of qubits 
+(figure \ref{figure:McClean}).
+In particular, this paper showed that for a large class of random quantum circuits the average value of the gradient of the objective 
+function is zero and the probability that any given instance of such a random circuit deviates from this average 
+value by a small constant $\epsilon$ is exponentially small in the number of qubits.
+The region where the average value of the gradient is zero does not correspond to a local minimum, but rather an 
+exponentially large plateau in the landscape of the parameters.\\
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.45\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/ProjectionGradientVar.pdf}
+    \includegraphics[width=.45\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/ProjectionGradientVarLayers.pdf}
+    \caption{These are the original images from the paper by \cite{McClean_2018}. 
+    The image on the left shows the variance of the gradient of a two-local Pauli term plotted as a function of 
+    the number of qubits: an exponential decay is observed as a function of the number 
+    of qubits for both the expected value and its spread.
+    The image on the right shows the variance of the gradient of a two-local Pauli term plotted as a function of the 
+    number of layers. The different lines correspond to all even numbers of qubits between 
+    2 and 24, with 2 qubits being the top line, and the rest being ordered by qubit number. This shows 
+    the convergence of the variance as a function of the number of layers to a fixed value determined by the 
+    number of qubits.
+    }
+    \label{figure:McClean}
+\end{figure}
+
+Other possible quantities have been introduced to study if a BP occurs: \textit{landscape's information content} \cite{P_rez_Salinas_2024}, 
+\textit{local state's entanglement} \cite{Sack_2022}, \textit{landscape's Fourier coefficients} \cite{okumura2023, Nemkov_2023}.
+
+The final remark on trainability is to discuss the origin of BPs:
+
+\begin{itemize}
+    \item \textbf{Curse of dimensionality}.\\
+    The very same feature that makes variational quantum computing appealing - the exponentially large dimension
+    of the Hilbert space - is at the very core of the BP phenomenon.
+    A loss of the form of equation \ref{eq:loss-function-vqa} can be expressed as 
+    $\ell_{\bm{\theta}} = \langle \rho(\bm{\theta}), O \rangle = \langle \rho, O(\bm{\theta}) \rangle$, where we have
+    introduced $O(\bm{\theta}) = U(\bm{\theta})^{\dagger} O U(\bm{\theta})$, $\langle A, B \rangle = Tr[A^{\dagger}B]$.
+    Therefore, optimizing the loss can be understood as variationally trying to anti-align two exponentially large 
+    vectors via their inner product.
+    The main problem is that the inner product between two exponentially large objects will be on average exponentially
+    small and concentrated.
+
+    \item \textbf{Circuit expressiveness}.\\
+    The main culprit responsible for barren plateaus is the PQC as it has been shown \cite{Holmes_2022} that 
+    its expressive power is directly linked to BPs.
+    Roughly speaking, the larger the space in the Hilbert space the PQC is able to explore in an unbiased manner, 
+    the more it will be prone to BPs.
+    This could seem counterintuitive, as we would ideally like to choose a PQC whose expressiveness is as high as 
+    possible, but this result could be interpreted as a \textit{no free-lunch theorem}: there is no PQC to rule them
+    all.\\
+    
+    \item \textbf{Input states and measurements}.\\
+    While highly expressive PQC bear significant fault in leading to BPs, there exist cases where circuits with 
+    small expressiveness can still exhibit BPs depending on who the initial state and measurement operator are.
+
+    \item \textbf{Noise}.\\
+    The presence of hardware noise acting throughout the PQC can significantly affect the loss function optimization
+    landscape, even being able to induce BPs \cite{Stilck_Fran_a_2021, Wang_2021}
+\end{itemize}
+
+
 
 \section{Linear quantum models: explicit models, implicit models, data re-uploading models}
 
@@ -99,7 +321,7 @@ Let's discuss separately how to upload classical and quantum data on a quantum c
     \qquad
     \rightarrow
     \qquad
-    \psi = \sum_i^{2^n} x_j | j \rangle
+    |\psi \rangle = \sum_i^{2^n} x_j | j \rangle
     \end{align}
 
     \item Quantum data.\\
@@ -122,7 +344,8 @@ for some hermitian observable $O \in \mathcal{F}$.\\
 Explicit and implicit models differ in the way they define the family of observable 
 $\{ O \}$ they each consider.
 
-\subsection{Explicit models}
+\subsection{Explicit models} 
+\label{subsec:explicit}
 
 An explicit quantum model using the feature encoding $U_{\phi}(\bm{x})$ is defined by a variational 
 family of unitaries $V(\bm{\theta})$ and a fixed observable O:
@@ -133,7 +356,8 @@ family of unitaries $V(\bm{\theta})$ and a fixed observable O:
 
 for $O_{\bm{\theta}} = V(\bm{\theta})^{\dagger} O V(\bm{\theta})$
 
-\subsection{Implicit models}
+\subsection{Implicit models} 
+\label{subsec:implicit}
 
 Implicit models are defined by the datapoints $\{ \bm{x}^{(1)}, \bm{x}^{(2)}, ..., \bm{x}^{(M)} \}$ of a given training set
 $\mathcal{D}$ and in particular they are a linear combination of the innerproducts of encoded datapoints:
@@ -152,39 +376,34 @@ observable:
 
 \subsection{Data re-uploading models}
 
-\cite{P_rez_Salinas_2020} introduced the \textit{re-uploading} encoding technique,
+\cite{Perez_reuploading} introduced the \textit{re-uploading} encoding technique,
 drawing inspiration from classical neural networks.
 The key idea that inspired Salinas et al is that a feed-forward neural network processes data several times
 (in each layer), one for each neuron in the considered hidden layer. 
 Therefore, strictly speaking, data is \textit{re-uploaded} multiple times onto the neural network.
-This key concept is illustrated in figure \ref{fig:data-reuploading-diagram}.
+This key concept is illustrated in figure \ref{fig:data-reuploading-schemes}.
 
-
-
-% \subcaption[⟨list entry⟩]{⟨heading⟩}[⟨width⟩][⟨inner-pos⟩]{⟨contents⟩}
-% list entry: nome interno che verrà usato se generata la lista delle figure.
-% heading: subcaption
-% width: larghezza del parbox creato
-% inner-pos: posizione che avrà l'immagine nel parbox
-% contents: immagine
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b][.45\textwidth]
-        \includegraphics[width=0.25\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Neural_network.png}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Neural_network.png}
     \end{subfigure}
-    \begin{subfigure}[b][.45\textwidth]
-        \includegraphics[width=0.5\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Quantum_scheme.png}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.85\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Quantum_scheme.png}
     \end{subfigure}
-    \caption{
-        Schemes of a one layer neural network and a single-qubit quantum circuit with data re-uploading.
-        In the neural network the data is uploaded in each neuron of the hidden layer, hence data is 
-        \textit{re-uploaded} multiple times.
-        In a similar way the data is introduced classically numerous times in the circuit.
-        The key difference between the two architectures is that each neuron of a neural network processes the 
-        data in parallel and simultaneously, whereas the single-qubit quantum circuit with data re-uploading 
-        processes the data sequentially.}
-    \label{fig:data-reuploading-diagram}
+    \caption{Schemes of a one layer neural network and a single-qubit quantum circuit with data re-uploading.
+    In the neural network the data is uploaded in each neuron of the hidden layer, hence data is 
+    \textit{re-uploaded} multiple times.
+    In a similar way the data is introduced classically numerous times in the circuit.
+    The key difference between the two architectures is that each neuron of a neural network processes the 
+    data in parallel and simultaneously, whereas the single-qubit quantum circuit with data re-uploading 
+    processes the data sequentially.}
+    \label{fig:data-reuploading-schemes}
 \end{figure}
+
+
 
 In a single-qubit quantum circuit with data re-uploading, data is introduced as a rotation of the qubit.
 Since every unitary can be expressed as the product of three rotation gates, we can define the angles as a linear
@@ -192,7 +411,6 @@ combination of weights and coordinates of the data\footnote[1]{Just like in a ne
 
 \begin{equation}
     U(\bm{\phi}) = R_Z(\phi_1) R_Y(\phi_2) R_Z(\phi_3)
-\label{}
 \end{equation}
 
 For instance, if data is 3-dimensional $\bm{x} = (x_1, x_2, x_3)$:
@@ -223,247 +441,82 @@ one layer of the architectures.
     the building blocks of this architecture.}
 \end{figure}
 
-Figure
+Figure \ref{fig:reuploading-exp} presents the results of a test conducted on a quantum re-uploading 
+model. The task was to classify whether a given point lies inside or outside a circle. The figure 
+clearly demonstrates that as the number of layers increases, the model's classification accuracy 
+improves significantly.
 
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer1-A.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer1-B.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer3-A.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer3-B.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer7-A.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer7-B.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer10-A.png}
     \end{subfigure}
-    \begin{subfigure}[b][0.45\textwidth]
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/Data-Re-Uploading/Layer10-B.png}
     \end{subfigure}
+    \caption{This figure illustrates the behavior of a quantum re-uploading model when classifying points 
+    as either inside or outside a circle. The first column shows the model's predictions before training, 
+    while the second column presents the predictions after training. Each row corresponds to an architecture 
+    with a different number of layers: the first row represents 1 layer, the second 3 layers, the third 7 
+    layers, and the fourth 10 layers. It is clear that as the number of layers increases, the model's 
+    classification accuracy improves significantly.}
+    \label{fig:reuploading-exp}
 \end{figure}
 
 
-\section{Variational Quantum Algorithms}
+\paragraph{Linear realization of data re-uploading models}
 
-The state of the art of Quantum Machine Learning has as main highlight the development
-of algorithms that have been proven to have a quantum advantage in computational
-complexity over classical algorithms~\cite{Sweke_2021, Liu_2021, Jerbi_2021}.
-However, these algorithms require a fault-tolerant quantum computer~\cite{shor}, which is able to
-continuously correct errors that arise during computation, ensuring the stability and
-reliability of the quantum processes over extended periods.
-As we are still many years away from fault tolerant quantum computation, the QML
-community has developed a great interest toward possible applications of current and
-near-term quantum devices (NISQ devices)~\cite{Preskill_2018}, which are not capable of continuous
-quantum error correction.
-In particular, the QML research community has developed a new class of quantum
-procedures called variational quantum algorithms (VQA)~\cite{Cerezo_2021} to take advantage of current
-and near-term quantum hardware.\\
-However no quantum advantage has been proven for this algorithms, yet.\\
-
-A VQA is a \textit{hybrid quantum-classical} algorithm with different components:
-
-\begin{enumerate}
-    \item \textbf{Encoding block}.\\
-    The first component is the encoding block, which is responsible to encode the data of the problem in the 
-    algorithm.
-    \item \textbf{Parametrized Quantum Circuit (PQC)}.\\
-    The second component is a parametrized quantum circuit U($\theta$), which is a circuit made of numerous gates. The parameters are usually 
-    the angles of the circuit and they can be tuned to enhance the algorithm's performance for completing a specific task. 
-    \item \textbf{Decoding Block}.\\
-    The third component is the decoding block, which consists in measuring the PQC.
-    \item \textbf{Optimization}.\\
-    The valuable information extracted when measuring the PQC is used to evaluate a objective function.
-    This objective function is then optimized, and this procedure suggests improved candidates 
-    for the parameters $\theta$, starting from random or pre-trained initial values.
-\end{enumerate}
-
-The crucial point to emphasize of a VQA is that the PQC can be executed on current quantum
-devices, while the computational demanding task of optimizing the objective function is
-performed by a classical computer, which is far more reliable then current NISQ devices.
-Therefore, the trademark of VQAs is that they use a quantum computer to estimate the cost function (or its gradient) 
-while leveraging the power of classical optimizers to train the parameters: this is why they are called
-\textit{hybrid quantum-classical} algorithms.\\
-Many different VQAs have been designed to tackle standard machine learning tasks, such
-as classification, regression or optimization.
-CITAZIONE
-
-\subsection{Parametrized Quantum Circuit}
-
-
-Parameterized Quantum Circuits are the core of every VQA.\\
-Consequently, it is crucial to design circuits that are not only \textit{easy to train} but also capable of 
-\textit{generalizing} from the training data and sufficiently \textit{expressive} to identify an optimal solution 
-for the given task.\\
-
-A PQC, also known as \textit{quantum neural network}, can be expressed as a series of L parametrized unitaries:
+As explained in paragraphs \ref{subsec:explicit} and \ref{subsec:implicit}, explicit and implicit models are linear
+quantum models.
+Data re-uploading models do not fit naturally the formulation given for explicit and implicit models.
+They generalize explicit models by increasing the number of encoding layers $U_l(\bm{x})$ $1 \ge l \le L$ and 
+interlaying them with variational unitaries $V_l(\bm{\theta})$.
+This results in expectation-value functions of the form:
 
 \begin{equation}
-    U(\theta) = \prod_{i=1}^L U_i(\theta_i)
-\label{Eq:definition-PQC}
+    f_{\bm{\theta}}(\bm{x}) = Tr[\rho_{\bm{\theta}}(\bm{x}) O_{\bm{\theta}}]
 \end{equation}
 
-where $\theta = (\theta_1, ..., \theta_L)$ is a set of tunable parameters.
-This parameters are updated by optimizing a loss function:
+for a variational encoding $\rho_{\bm{\theta}}(\bm{x})$ and a variational observable $O_{\bm{\theta}}$:
 
-\begin{comment}
-\[
-    \ell_{\theta}(\rho, O) = \text{Tr}\left[\rho(\theta)O\right]
-    \qquad
-    \rightarrow
-    \qquad
-    \argmin_{\theta} l_{\theta}(\rho, O)
-\]
-\end{comment}
+\begin{align}
+    \rho_{\bm{\theta}}(\bm{x}) = U(\bm{x}, \bm{\theta}) |0\rangle \langle 0| U(\bm{x}, \bm{\theta})^{\dagger} \\
+    U(\bm{x}, \bm{\theta}) = U_L(\bm{x}) \prod_{l=1}^{L} V_l(\bm{\theta}) U_l(\bm{x}) \\
+    O_{\bm{\theta}} = V_L(\bm{\theta})^{\dagger} O V_L(\bm{\theta})
+\end{align}
 
-
-More general loss functions exist, but this case is already relevant.\\
-The main properties of a PQC are \textit{expressivity}~\cite{hubregtsen2020, Sim_2019, Bravo_Prieto_2020, 
-Wu_2021, Herman_2023, Haug_2021, Holmes_2022}, \textit{generalization}~\cite{Caro_2020, Abbas_2021, Banchi_2021,
-Bu_2023, bu2021, Bu_2022, Du_2022, Peters_2023, Caro_2023} and \textit{trainability}~\cite{McClean_2018, 
-Cerezo_2021, Arrasmith_2021, Kim_2021, Wang_2021, Pesah_2021, marrero2021, Larocca_2023}.
-
-\paragraph{Trainability}
-
-As in classical machine learning, variational quantum algorithms can suffer from the problem of vanishing 
-gradient, or in QML terms \textit{Barren Plateaus} (BP).
-A common definition of BP for VQAs is the following:
-
-\begin{defn*}[Barren Plateaus]
-    A VQA exhibits a BP if its loss function, or its gradients, concentrate exponentially about their mean 
-    in the number of qubits n
-    \footnote[1]{The two definitions of Barren Plateaus — one involving gradients and the other 
-    involving the loss function — are not equivalent. The definition based on the loss function is 
-    unambiguous, whereas the definition in terms of partial derivatives can be less clear. The ambiguity 
-    arises because some partial derivatives might be exponentially concentrated while others are not. In such 
-    cases, the loss function would not exhibit exponential concentration, indicating that the two definitions 
-    are not equivalent. They become equivalent only when \textit{all} the gradients are exponentially concentrated 
-    \cite{Arrasmith_2022}.}.
-\end{defn*}
-
-This means that, as the number of qubits n increases, the gradients of the loss function (or the loss function itself) 
-tend to concentrate around an average value with increasing probability.    
-The average value around which the gradient must concentrate in order to exhibit BP must be very 
-small\footnote[1]{\cite{McClean_2018} demonstrated that, under broad conditions, random parameterized quantum 
-circuits have an average gradient value of zero.}.
-In fact, if the gradient were concentrated around a non-infinitesimal value, it would mean that the 
-algorithm is still learning.
-Intuitively, this means that the optimization landscape is mostly flat and featureless and
-that slightly changing the model’s parameters $\theta$ results in only an exponentially small change in the loss
-function value or its gradient.\\
-
-The probabilistic nature of Quantum Mechanics forces us to measured a finite amount of times N the PQC to determine
-the average value of an observable.
-The statistical uncertainty related to the average value is inversely proportional to $\sqrt{N}$.
-Therefore, if the loss function has an exponential concentration (which means that the changes of the loss function 
-from one epoch to the following are exponentially suppressed), we need an exponential amount of shots to resolve this
-changes, rendering the algorithm inefficient and non-scalable.
- 
-
-Two main types of BPs exist:
-
-\begin{comment}
-\begin{enumerate}
-    \item \textbf{Probabilistic concentration and narrow gorges}.\\
-    The most common type of BP is known as \textit{probabilistic concentration}.
-
-    \begin{equation}
-        Var_{\theta} \[ \ell_{\theta}(\rho, O) \] or Var_{\theta} \[ \partial_{\mu} \ell_{\theta}(\rho, O) \] \in \mathcal{O}(\frac{1}{b^n})
-    \end{equation}
-
-    where $b > 1$. Chebyshev's inequality implies for any $\delta > 0$:
-
-    \begin{align}
-        Pr(|\ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\ell_{\theta}(\rho, O))| \ge \delta) \in \mathcal{O}(\frac{1}{b^n})\\
-        Pr(|\partial_{\mu} \ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\partial_{\mu} \ell_{\theta}(\rho, O))| \ge \delta) \in \mathcal{O}(\frac{1}{b^n})\\
-    \end{align}
-
-    which means that the probability that the loss deviates from its mean is exponentially small.\\
-    Probabilistic BP imply a mostly flat landscape with some \textit{narrow gorge}.
-    
-    \item \textbf{Deterministic concentration}.\\
-    A deterministic BP arises when $\forall \theta$:
-    \begin{align}
-        |\ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\ell_{\theta}(\rho, O))| \in \mathcal{O}(\frac{1}{b^n})\\
-        |\partial_{\mu} \ell_{\theta}(\rho, O) - \mathbb{E}_{\theta}(\partial_{\mu} \ell_{\theta}(\rho, O))| \in \mathcal{O}(\frac{1}{b^n})\\
-    \end{align}
-
-    where $b > 1$.
-    Deterministic BP do not even admit narrow gorges.
-\end{enumerate}
-\end{comment}
-
-A possible method to determine if the loss or the gradients are concentrating was introduced by \cite{McClean_2018}.
-They randomly sampled parameters and computed how the variance scales with the number of qubits 
-(figure \ref{figure:McClean}).
-In particular, this paper showed that for a large class of random quantum circuits the average value of the gradient of the objective 
-function is zero and the probability that any given instance of such a random circuit deviates from this average 
-value by a small constant $\epsilon$ is exponentially small in the number of qubits.
-The region where the average value of the gradient is zero does not correspond to a local minimum, but rather an 
-exponentially large plateau in the landscape of the parameters.\\
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.45\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/ProjectionGradientVar.pdf}
-    \includegraphics[width=.45\textwidth]{sections/chapters/Quantum-Machine-Learning/Images/ProjectionGradientVarLayers.pdf}
-    \caption{These are the original images from the paper by \cite{McClean_2018}. 
-    The image on the left shows the variance of the gradient of a two-local Pauli term plotted as a function of 
-    the number of qubits: an exponential decay is observed as a function of the number 
-    of qubits for both the expected value and its spread.
-    The image on the right shows the variance of the gradient of a two-local Pauli term plotted as a function of the 
-    number of layers. The different lines correspond to all even numbers of qubits between 
-    2 and 24, with 2 qubits being the top line, and the rest being ordered by qubit number. This shows 
-    the convergence of the variance as a function of the number of layers to a fixed value determined by the 
-    number of qubits.
-    }
-    \label{figure:McClean}
-\end{figure}
-
-Other possible quantities have introduced to study if a BP occurs: \textit{landscape's information content} \cite{P_rez_Salinas_2024}, 
-\textit{local state's entanglement} \cite{Sack_2022}, \textit{landscape's Fourier coefficients} \cite{okumura2023, Nemkov_2023}.
-
-The final remark on trainability is to discuss the origin of BPs:
-
-\begin{itemize}
-    \item \textbf{Curse of dimensionality}.\\
-    \item \textbf{Circuit expressiveness}.\\
-    \item 
-\end{itemize}
-
-\paragraph{Generalization}
-
-
-\paragraph{Expressivity}
-
-
-
-\section{Quantum Machine Learning}
-
-\subsection{Linear quantum models: quantum classifiers and kernel methods}
-
-\subsection{Data reuploading models and Quantum Neural Network}
-
-\subsection{Deriving the Fourier expansion}
-
-\subsection{A single-qubit data reuploading circuit}
-
-\subsection{Quantum Neural Networks}
-
-\subsection{Generalization of QML models}
-
-\subsection{The power of quantum machine learning}
-
+Since in general $V_l(\bm{\theta})$ and $U_{l'}(\bm{x})$ do not commute, we cannot group all trainable gates to define
+a variation observable $O_{\bm{\theta}}'$ as to obtain a linear model $\tilde{f}_{\bm{\theta}}$.\\
+However, \cite{Jerbi_2023} proved that by augmenting the dimension of the Hilbert space $\mathcal{F}$ (i.e., considering 
+circuits that act on a larger number of qubits), one can
+construct such explicit linear realizations $\tilde{f}_{\bm{\theta}}$ of data re-uploading models.
 
 
 

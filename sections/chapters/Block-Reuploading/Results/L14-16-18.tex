@@ -1,9 +1,22 @@
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.3]{sections/chapters/Chapter6/Images/Heatmaps/Local-Heatmaps/Heatmap-Both-14x14-L.pdf}
-    \caption{This heatmap shows the training and validation accuracy for architectures for the $14\times14$ down-scaled MNIST digits and fashion dataset using a local Pauli Z.}
-    \label{fig:heatmap-14x14-L}
+    \begin{subfigure}
+        \centering
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Heatmaps/Local-Heatmaps/Heatmap-Both-14x14-L.pdf}
+        \caption*{This heatmap shows the training and validation accuracy for architectures for the $14\times14$ down-scaled MNIST digits and fashion dataset using a local Pauli Z.}
+        \label{fig:heatmap-14x14-L}
+    \end{subfigure}
+    \begin{subfigure}
+        \centering
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Heatmaps/Local-Heatmaps/Heatmap-Digits-16-18-L.pdf}
+        \caption*{This heatmap shows the training and validation accuracy for architectures for the $16\times16$ and 
+        $18\times18$ down-scaled MNIST digits dataset using a local Pauli Z.
+        Some training sessions run for 150 epochs (e.g., $16\times16$: 2 qubits, $18\times18$: 
+        1 qubit, 3 qubits), while others are extended to 200 epochs.}
+        \label{fig:heatmap-16x16-L}
+    \end{subfigure}
 \end{figure}
+
 
 By enlarging the images to $14\times14$, we can again notice a \textit{shift to the left by 
 one or two layers} of the validation accuracy with respect to the $12\times12$ local case (figure 
@@ -26,13 +39,4 @@ $18\times18$ down-scaled MNIST digits dataset using a local Pauli Z.
 Once again we can notice that overfitting worsens as the images' size increase (shifting to the left behaviour), 
 whereas the training accuracy remains stable.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.3]{sections/chapters/Chapter6/Images/Heatmaps/Local-Heatmaps/Heatmap-Digits-16-18-L.pdf}
-    \caption{This heatmap shows the training and validation accuracy for architectures for the $16\times16$ and 
-    $18\times18$ down-scaled MNIST digits dataset using a local Pauli Z.
-     Some training sessions run for 150 epochs (e.g., $16\times16$: 2 qubits, $18\times18$: 
-     1 qubit, 3 qubits), while others are extended to 200 epochs.}
-    \label{fig:heatmap-16x16-L}
-\end{figure}
 
