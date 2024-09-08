@@ -1,14 +1,3 @@
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{sections/chapters/Block-Reuploading/Images/Trainability/variance-qubits-glob-loc.pdf}
-    \caption{The first row compares the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} plots for the local (left)
-    and global (right) case with a uniform initialization of the parameters ranging [-$\pi$, $\pi$].
-    The first row compares the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} plots for the local (left)
-    and global (right) case with a uniform initialization of the parameters ranging [-$\pi$, $\pi$].
-    By local and global case we intend that we either used local Pauli Z or global Pauli Z, as the 
-    decoding method.}
-    \label{fig:uniform-init}
-\end{figure}
 
 We investigated the \textit{trainability} (figures \ref{fig:uniform-init} and \ref{fig:local-gauss}) 
 of the \textit{block re-uploading} architecture following the procedure introduced by 
@@ -77,13 +66,24 @@ between [-$\pi$, $\pi$] (figure \ref{fig:uniform-init}):
     the variance decreases.
 \end{enumerate}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{sections/chapters/Block-Reuploading/Images/Trainability/variance-qubits-glob-loc.pdf}
+    \caption{The first row compares the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} plots for the local (left)
+    and global (right) case with a uniform initialization of the parameters ranging [-$\pi$, $\pi$].
+    The first row compares the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs qubits} plots for the local (left)
+    and global (right) case with a uniform initialization of the parameters ranging [-$\pi$, $\pi$].
+    By local and global case we intend that we either used local Pauli Z or global Pauli Z, as the 
+    decoding method.}
+    \label{fig:uniform-init}
+\end{figure}
 
-After examining \textit{uniform initialization} (see figure \ref{fig:local-uniform}), we evaluated 
+After examining \textit{uniform initialization} (see figure \ref{fig:uniform-init}), we evaluated 
 \textit{gaussian initialization} (shown in figure \ref{fig:local-gauss}) for local decoding. However, 
 we observed no significant differences between the two initialization methods.
 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{sections/chapters/Block-Reuploading/Images/Trainability/variance-qubits-layer-local-uniform.pdf}
     \caption{The figure shows the \textit{$Var(|\nabla_{\bm{\theta}}J|)$ vs layers} and

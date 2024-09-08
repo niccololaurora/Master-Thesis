@@ -31,10 +31,28 @@ three different behaviours:
 \end{enumerate}
 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Heatmaps/Local-Heatmaps/Heatmap-Both-8x8-L.pdf}
     \caption{This heatmap shows the training and validation accuracy for architectures with 1-15 qubits and
     1-6 layers for the $8\times8$ down-scaled MNIST digits and fashion dataset using a local Pauli Z.}
     \label{fig:heatmap-8x8-L}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.45]{sections/chapters/Block-Reuploading/Images/Sfera-Bloch/q1-l6-sphere-before.pdf}
+        \caption{Before training.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.45]{sections/chapters/Block-Reuploading/Images/Sfera-Bloch/q1-l6-sphere-after.pdf}
+        \caption{After training.}
+    \end{subfigure}
+    \caption{This figure illustrates the distribution of quantum states for an architecture with 
+    1 qubit and 6 layers, both before and after training, in the task of classifying the digits 
+    0 and 1 from the MNIST dataset. Before training, the predictions are uniformly distributed 
+    across the Bloch sphere. However, after training, the architecture clearly distinguishes between 
+    the zeros and ones, demonstrating its improved classification capability.}
+    \label{fig:sfere-A-B}
 \end{figure}

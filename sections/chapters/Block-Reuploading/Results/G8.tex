@@ -1,13 +1,4 @@
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Heatmaps/Global-Heatmaps/Heatmap-Both-8x8-G.pdf}
-    \caption{This heatmap shows the training and validation accuracy for architectures with 1-15 qubits and
-    1-6 layers for the $8\times8$ down-scaled MNIST digits and fashion dataset using a global Pauli Z.}
-    \label{fig:heatmap-8x8-G}
-\end{figure}
-
-
 By looking at figure \ref{fig:heatmap-8x8-G}, we can notice 
 several interesting behaviours:
 
@@ -30,3 +21,32 @@ several interesting behaviours:
     Proportionate architectures (center and bottom-right area of the heatmap) do not exhibit overfitting. \\
     However, they generally perform worse than their local counterparts.
  \end{itemize}
+
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Heatmaps/Global-Heatmaps/Heatmap-Both-8x8-G.pdf}
+    \caption{This heatmap shows the training and validation accuracy for architectures with 1-12 qubits and
+    1-6 layers for the $8\times8$ down-scaled MNIST digits and fashion dataset using a global Pauli Z.}
+    \label{fig:heatmap-8x8-G}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[scale=0.5]{sections/chapters/Block-Reuploading/Images/Comparison-Layers-Q1-8x8-G/accuracy-train-q1-8x8.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[scale=0.5]{sections/chapters/Block-Reuploading/Images/Comparison-Layers-Q1-8x8-G/accuracy-val-q1-8x8.pdf}
+    \end{subfigure}
+    \caption{This figure compares the accuracy of 1-qubit architectures with varying numbers of layers in the task 
+    of classifying the digits 0 and 1 from the MNIST dataset. While the training accuracies appear unordered, 
+    the validation accuracies reveal a clear pattern: as the number of layers increases, overfitting becomes 
+    apparent. In fact, the best validation accuracy is achieved with just a single layer, and the performance 
+    degrades as the number of layers increases. This decline is due to the growing number of parameters as more 
+    layers are added, making the model more prone to overfitting and less able to generalize to unseen data.}
+\end{figure}

@@ -280,7 +280,7 @@ We conducted several numerical test on the \textit{block re-uploading} architect
     We used both the MNIST digit and MNIST fashion datasets, which are both grayscale $28\times28$ pixels images.
     \item Image size.\\
     We used different down-scaling of the MNIST dataset: $8\times8$, $12\times12$, $14\times14$, 
-    $16\times16$, $18\times18$.
+    $16\times16$, $18\times18$ (figure \ref{fig:digits-sizes}).
     \item Decoding observable.\\
     Every quantum machine learning algorithm has a \textit{decoding} component at the end of it, which consists in 
     measuring an observable to extract information from the PQC.
@@ -291,6 +291,44 @@ We conducted several numerical test on the \textit{block re-uploading} architect
     \item Architectures.\\
     We studied the architecture shown in figure \ref{fig:components}.
 \end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Digits/Digits-4x4-.pdf}
+        \caption{$4\times4$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Digits/Digits-8x8-.pdf}
+        \caption{$8\times8$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Digits/Digits-12x12-.pdf}
+        \caption{$12\times12$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Digits/Digits-14x14-.pdf}
+        \caption{$14\times14$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Digits/Digits-16x16-.pdf}
+        \caption{$16\times16$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[scale=0.3]{sections/chapters/Block-Reuploading/Images/Digits/Digits-18x18-.pdf}
+        \caption{$18\times18$}
+    \end{subfigure}
+    \caption{
+        This figure displays two examples of the digits 0 and 1 at varying resolutions: $4\times4$, $8\times8$, 
+        $12\times12$, $14\times14$, $16\times16$, $18\times18$.
+        As the image resolution decreases, the digits become increasingly similar and harder to distinguish, 
+        highlighting the challenge of classification at lower resolutions.
+        Furthermore, as noted by \cite{bowles2024betterclassicalsubtleart}, $70\%$ of the images in the test dataset 
+        are identical to those in the training dataset for the $4\times4$ MNIST images.}
+    \label{fig:digits-sizes}
+\end{figure}
+
 
 
 It is essential to keep in mind that by increasing the size of images the number of embedding gates will
