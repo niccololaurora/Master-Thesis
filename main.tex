@@ -18,7 +18,6 @@
 \input{bibliography/index}
 
 
-
 \begin{document}
     \pagestyle{scrheadings}
 
@@ -28,9 +27,21 @@
     \input{title/Titlepage}
     \pagenumbering{roman}
 
+    % Dedica
     \cleardoublepage
-    %\input{acknowledgements/Acknowledgements}
+    \thispagestyle{empty}
+    \vspace*{5cm}
+
+    \begin{flushright}
+    \textit{A tutte le versioni di Niccolò.}
+    \end{flushright}
+
+    \cleardoublepage
+    \cleardoublepage
+    \input{acknowledgements/Acknowledgements}
     \pagestyle{scrheadings} 
+    \newpage
+    \thispagestyle{empty}
     \input{index/Contents}
     \cleardoublepage
     \pagenumbering{arabic}
